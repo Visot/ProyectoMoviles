@@ -3,6 +3,7 @@
     package="com.example.moviles.proyectomoviles">
 
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -24,9 +25,6 @@
         </activity>
         <activity android:name=".Register" />
         <activity android:name=".Camara" />
-        <activity
-            android:name=".Maps"
-            android:label="@string/title_activity_maps" />
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps"></activity>
