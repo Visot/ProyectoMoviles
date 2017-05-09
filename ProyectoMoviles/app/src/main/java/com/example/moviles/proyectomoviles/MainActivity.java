@@ -10,13 +10,16 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+    private Button login;
+    private Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Button login=(Button)findViewById(R.id.login);
+        login=(Button)findViewById(R.id.login);
         login.setOnClickListener( this);
-        Button register=(Button)findViewById(R.id.register);
+        register=(Button)findViewById(R.id.register);
         register.setOnClickListener( this);
     }
 
