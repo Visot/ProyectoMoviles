@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">ProyectoMoviles</string>
+    <string name="login">Login</string>
+    <string name="registro">Registro</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="camara">Camara</string>
+</resources>
