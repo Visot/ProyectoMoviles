@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button register=(Button)findViewById(R.id.register);
         register.setOnClickListener(this);
 
-        this.navList = (ListView) findViewById(R.id.left_drawer);
+        /*this.navList = (ListView) findViewById(R.id.left_drawer);
 
         // Load an array of options names
         final String[] names = getResources().getStringArray(
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         // Set previous array as adapter of the list
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, names);
-        navList.setAdapter(adapter);
+        navList.setAdapter(adapter);*/
     }
 
 
