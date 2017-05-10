@@ -49,28 +49,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        /*this.navList = (ListView) findViewById(R.id.left_drawer);
-
-        // Load an array of options names
-        final String[] names = getResources().getStringArray(
-                R.array.nav_options);
-
-        // Set previous array as adapter of the list
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, names);
-        navList.setAdapter(adapter);*/
     }
 
 
 
-    /*
-    // Configura a Toolbar
-    protected void setUpToolbar() {
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-        }
-    }*/
+
 
     @Override
     public void onClick(View v) {
@@ -80,8 +63,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         if(v.getId() == R.id.login) {
-            intencion2= new Intent(getApplicationContext(),MapsActivity.class);
-            startActivity(intencion2 );
+            if(validarLogueo(nombre,password)){
+                intencion2= new Intent(getApplicationContext(),MapsActivity.class);
+                startActivity(intencion2 );
+            }
+
         }else if(v.getId() == R.id.register){
             intencion2= new Intent(getApplicationContext(), Register.class);
             startActivity(intencion2 );
@@ -89,8 +75,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean validarLogueo(String c, String p){
-
-        return true;
+        if(c.equals("unimaps@gmail.com")&p.equals("12345678")) return true;
+        else return false;
 
     }
 
