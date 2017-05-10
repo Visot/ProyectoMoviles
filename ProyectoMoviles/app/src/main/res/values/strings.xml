@@ -5,4 +5,9 @@
     <string name="title_activity_maps">Map</string>
     <string name="camara">Camara</string>
     <string name="take_picture">Take picture</string>
+    <string-array name="opcionmap">\
+        <item> Normal</item>
+        <item> Satelite</item>
+        <item> Terrain</item>
+    </string-array>
 </resources>
