@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 
@@ -15,16 +16,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private ListView navList;
 
+    private EditText correoLogin;
+    private EditText passLogin;
+    private Button login;
+    private Button register;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button login=(Button)findViewById(R.id.login);
-        login.setOnClickListener(this);
+        correoLogin =(EditText)findViewById(R.id.mailLogin);
+        passLogin =(EditText)findViewById(R.id.passLogin);
 
-        Button register=(Button)findViewById(R.id.register);
+        login =(Button)findViewById(R.id.login);
+        register=(Button)findViewById(R.id.register);
+
+        login.setOnClickListener(this);
         register.setOnClickListener(this);
+
+
 
         /*this.navList = (ListView) findViewById(R.id.left_drawer);
 
@@ -52,6 +62,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intencion2;
+        String nombre=correoLogin.getText().toString();
+        String password=passLogin.getText().toString();
+
+
         if(v.getId() == R.id.login) {
             intencion2= new Intent(getApplicationContext(),MapsActivity.class);
             startActivity(intencion2 );
@@ -59,5 +73,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             intencion2= new Intent(getApplicationContext(), Register.class);
             startActivity(intencion2 );
         }
+    }
+
+    public boolean validarLogueo(String c, String p){
+
+        return true;
+
     }
 }

@@ -50,19 +50,19 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="265dp"
-                android:layout_height="127dp"
-                app:srcCompat="@android:color/holo_green_dark"
-                app:layout_constraintTop_toTopOf="parent"
-                android:layout_marginTop="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_width="297dp"
+                android:layout_height="152dp"
                 android:layout_marginBottom="8dp"
                 android:layout_marginLeft="8dp"
-                app:layout_constraintLeft_toLeftOf="parent"
                 android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.507"
+                app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintHorizontal_bias="0.504"
-                app:layout_constraintVertical_bias="0.192" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.107"
+                app:srcCompat="@drawable/image1" />
 
             <EditText
                 android:id="@+id/passLogin"
@@ -80,10 +80,10 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.648" />
+                app:layout_constraintVertical_bias="0.639" />
 
             <EditText
-                android:id="@+id/MailLogin"
+                android:id="@+id/mailLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -107,7 +107,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Correo"
+                android:text="@string/correo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.131"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -125,7 +125,7 @@
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:layout_marginTop="8dp"
-                android:text="Password"
+                android:text="@string/password"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHorizontal_bias="0.075"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -146,6 +146,15 @@
                 android:id="@+id/guideline4"
                 android:orientation="vertical"
                 app:layout_constraintGuide_end="262dp" />
+
+            <TextView android:id="@+id/login_error"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dip"
+                android:layout_marginBottom="40dip"
+                android:gravity="center"
+                android:textSize="20dip"
+                android:textColor="#0b84aa"/>
 
 
         </android.support.constraint.ConstraintLayout>

@@ -7,6 +7,14 @@
     <string name="title_activity_maps">Map</string>
     <string name="camara">Camara</string>
     <string name="take_picture">Take picture</string>
+    <string name="correo">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="nombres">Nombre</string>
+    <string name="apellidos">Apellidos</string>
+    <string name="rep_password">Repetir Contraseña</string>
+    <string name="validar_correo">Correo no valido</string>
+    <string name="validar_password">Contraseña muy corta</string>
+
     <string-array name="opcionmap">\
         <item> Normal</item>
         <item> Satelite</item>
