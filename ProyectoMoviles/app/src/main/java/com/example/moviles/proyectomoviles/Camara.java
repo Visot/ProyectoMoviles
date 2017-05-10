@@ -18,13 +18,11 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
@@ -37,16 +35,13 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Camara extends AppCompatActivity {
 
-    private static final String TAG = "AndroidCameraApi";
-    private Button takePictureButton;
+    private static final String TAG = "UniMaps";
     private TextureView textureView;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
@@ -58,13 +53,13 @@ public class Camara extends AppCompatActivity {
     private String cameraId;
     protected CameraDevice cameraDevice;
     protected CameraCaptureSession cameraCaptureSessions;
-    protected CaptureRequest captureRequest;
+    //protected CaptureRequest captureRequest;
     protected CaptureRequest.Builder captureRequestBuilder;
     private Size imageDimension;
     private ImageReader imageReader;
     private File file;
     private static final int REQUEST_CAMERA_PERMISSION = 200;
-    private boolean mFlashSupported;
+    //private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
     @Override
@@ -74,14 +69,6 @@ public class Camara extends AppCompatActivity {
         textureView = (TextureView) findViewById(R.id.texture);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
-        takePictureButton = (Button) findViewById(R.id.btn_takepicture);
-        assert takePictureButton != null;
-        takePictureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                takePicture();
-            }
-        });
     }
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
@@ -171,44 +158,11 @@ public class Camara extends AppCompatActivity {
             int rotation = getWindowManager().getDefaultDisplay().getRotation();
             captureBuilder.set(CaptureRequest.JPEG_ORIENTATION, ORIENTATIONS.get(rotation));
             final File file = new File(Environment.getExternalStorageDirectory()+"/pic.jpg");
-            ImageReader.OnImageAvailableListener readerListener = new ImageReader.OnImageAvailableListener() {
-                @Override
-                public void onImageAvailable(ImageReader reader) {
-                    Image image = null;
-                    try {
-                        image = reader.acquireLatestImage();
-                        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
-                        byte[] bytes = new byte[buffer.capacity()];
-                        buffer.get(bytes);
-                        save(bytes);
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } finally {
-                        if (image != null) {
-                            image.close();
-                        }
-                    }
-                }
-                private void save(byte[] bytes) throws IOException {
-                    OutputStream output = null;
-                    try {
-                        output = new FileOutputStream(file);
-                        output.write(bytes);
-                    } finally {
-                        if (null != output) {
-                            output.close();
-                        }
-                    }
-                }
-            };
-            reader.setOnImageAvailableListener(readerListener, mBackgroundHandler);
             final CameraCaptureSession.CaptureCallback captureListener = new CameraCaptureSession.CaptureCallback() {
                 @Override
                 public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
                     super.onCaptureCompleted(session, request, result);
-                    Toast.makeText(Camara.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Camara.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
                     createCameraPreview();
                 }
             };
@@ -240,11 +194,10 @@ public class Camara extends AppCompatActivity {
             cameraDevice.createCaptureSession(Arrays.asList(surface), new CameraCaptureSession.StateCallback(){
                 @Override
                 public void onConfigured(@NonNull CameraCaptureSession cameraCaptureSession) {
-                    //The camera is already closed
+                    //verifica si esta bien cerrada
                     if (null == cameraDevice) {
                         return;
                     }
-                    // When the session is ready, we start displaying the preview.
                     cameraCaptureSessions = cameraCaptureSession;
                     updatePreview();
                 }
@@ -259,14 +212,14 @@ public class Camara extends AppCompatActivity {
     }
     private void openCamera() {
         CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        Log.e(TAG, "is camera open");
+        Log.e(TAG, "Abrir camara");
         try {
             cameraId = manager.getCameraIdList()[0];
             CameraCharacteristics characteristics = manager.getCameraCharacteristics(cameraId);
             StreamConfigurationMap map = characteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
             assert map != null;
             imageDimension = map.getOutputSizes(SurfaceTexture.class)[0];
-            // Add permission for camera and let user grant the permission
+            // Agregar los permisos y dejar que el usuario acepte los permisos
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(Camara.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
                 return;
@@ -275,11 +228,11 @@ public class Camara extends AppCompatActivity {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
-        Log.e(TAG, "openCamera X");
+        Log.e(TAG, "Camara abierta");
     }
     protected void updatePreview() {
         if(null == cameraDevice) {
-            Log.e(TAG, "updatePreview error, return");
+            Log.e(TAG, "Actualiza error, return");
         }
         captureRequestBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_AUTO);
         try {
@@ -302,8 +255,8 @@ public class Camara extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
-                // close the app
-                Toast.makeText(Camara.this, "Sorry!!!, you can't use this app without granting permission", Toast.LENGTH_LONG).show();
+                //Cerrar si los permisos son denegados
+                Toast.makeText(Camara.this, "No puedes usar esta aplicacion sin permisos", Toast.LENGTH_LONG).show();
                 finish();
             }
         }
@@ -322,7 +275,6 @@ public class Camara extends AppCompatActivity {
     @Override
     protected void onPause() {
         Log.e(TAG, "onPause");
-        //closeCamera();
         stopBackgroundThread();
         super.onPause();
     }
