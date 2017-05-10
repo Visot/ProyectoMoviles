@@ -14,6 +14,11 @@
     <string name="rep_password">Repetir Contraseña</string>
     <string name="validar_correo">Correo no valido</string>
     <string name="validar_password">Contraseña muy corta</string>
+    <string name="lat">Latitud</string>
+    <string name="lon">Longitud</string>
+    <string name="no_location">Localización no encontrada</string>
+
+
 
     <string-array name="opcionmap">\
         <item> Normal</item>
