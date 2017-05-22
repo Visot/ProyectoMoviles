@@ -6,7 +6,7 @@
             android:title="@string/Home"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:icon="@drawable/cosmos"
+            android:icon="@drawable/Busqueda"
             android:title="@string/Lugares"/>
         <item
             android:id="@+id/menu_seccion_3"
