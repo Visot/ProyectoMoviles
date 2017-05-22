@@ -2,30 +2,30 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/menu_seccion_1"
-            android:icon="@drawable/cosmos"
-            android:title="@string/seccion1"/>
+            android:icon="@drawable/casa"
+            android:title="@string/Home"/>
         <item
             android:id="@+id/menu_seccion_2"
-            android:icon="@drawable/cosmos"
-            android:title="@string/seccion1"/>
+            android:icon="@drawable/busqueda"
+            android:title="@string/Lugares"/>
         <item
             android:id="@+id/menu_seccion_3"
             android:icon="@drawable/cosmos"
-            android:title="@string/seccion1"/>
+            android:title="@string/Historial"/>
     </group>
 
     <item
         android:id="@+id/navigation_subheader"
-        android:title="@string/seccion1">
+        android:title="Más">
         <menu>
             <item
                 android:id="@+id/menu_opcion_1"
-                android:icon="@drawable/cosmos"
-            android:title="@string/seccion1"/>
+                android:icon="@drawable/pregunta"
+            android:title="@string/Ayuda"/>
             <item
                 android:id="@+id/menu_opcion_2"
-                android:icon="@drawable/cosmos"
-                android:title="@string/seccion1"/>
+                android:icon="@drawable/cierre"
+                android:title="@string/Cerrar"/>
         </menu>
     </item>
 </menu>

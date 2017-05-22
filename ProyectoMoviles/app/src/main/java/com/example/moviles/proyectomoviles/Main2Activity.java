@@ -12,7 +12,7 @@ public class Main2Activity extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.activity_navimain2);
         Button mapa = (Button) findViewById(R.id.Mapa);
         mapa.setOnClickListener(this);
         Button camara = (Button) findViewById(R.id.Camara);
