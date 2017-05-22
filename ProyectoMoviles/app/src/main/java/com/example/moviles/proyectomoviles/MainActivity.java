@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if(v.getId() == R.id.login) {
             if(validarLogueo(nombre,password)){
-                intencion2= new Intent(getApplicationContext(),MapsActivity.class);
+                intencion2= new Intent(getApplicationContext(),Main2Activity.class);
                 startActivity(intencion2 );
             }
 

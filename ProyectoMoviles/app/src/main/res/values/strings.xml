@@ -17,12 +17,13 @@
     <string name="lat">Latitud</string>
     <string name="lon">Longitud</string>
     <string name="no_location">Localización no encontrada</string>
-
-
+    <string name="cam">Camara</string>
+    <string name="map">Mapa</string>
 
     <string-array name="opcionmap">\
         <item> Normal</item>
         <item> Satelite</item>
         <item> Terrain</item>
     </string-array>
+    <string name="title_activity_main2">Main2Activity</string>
 </resources>

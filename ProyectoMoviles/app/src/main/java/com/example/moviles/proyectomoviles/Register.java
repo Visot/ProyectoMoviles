@@ -85,7 +85,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
 
-            intencion= new Intent(getApplicationContext(),MapsActivity.class);
+            intencion= new Intent(getApplicationContext(),Main2Activity.class);
             startActivity(intencion);
         }
 
