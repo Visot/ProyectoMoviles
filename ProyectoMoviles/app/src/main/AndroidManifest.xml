@@ -45,7 +45,11 @@
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".Instituciones"></activity>
+        <activity android:name=".Instituciones" />
+        <activity
+            android:name=".pestanas"
+            android:label="@string/title_activity_pestanas"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

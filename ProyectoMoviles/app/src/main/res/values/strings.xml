@@ -39,4 +39,10 @@
         <item> Terrain</item>
     </string-array>
     <string name="title_activity_main2">Main2Activity</string>
+    <string name="section_format">Hola seccion: %1$d</string>
+    <string name="action_settings">Configuraciones</string>
+    <string name="title_activity_pestanas">Lugares</string>
+    <string name="oficinas">Oficinas</string>
+    <string name="facultades">Facultades</string>
+    <string name="centros_Inv">Centros Inv.</string>
 </resources>
