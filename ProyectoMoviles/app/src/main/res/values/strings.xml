@@ -25,7 +25,14 @@
     <string name="cam">Camara</string>
     <string name="map">Mapa</string>
     <string name="CTIC">CTIC</string>
-    <string name="DESCTIC">El Centro de Tecnologías de Información y Comunicaciones de la Universidad Nacional de Ingeniería (CTIC-UNI) fue inaugurado en el año 2008. Es un centro que absorbe la actividades del Centro de Cómputo de la UNI (CC-UNI) y El Centro de Aplicaciones Telemáticas (CETEL-UNI).</string>
+    <string name="DESCTIC">El Centro de Tecnologías de Información y Comunicaciones de la Universidad Nacional de Ingeniería (CTIC-UNI)</string>
+    <string name="CISMID">CISMID</string>
+    <string name="DESCISMID">Centro Peruano Japones de investigaciones sismica y mitigacion de desastres</string>
+    <string name="INICTEL">INICTEL</string>
+    <string name="DESINICTEL">INSTITUTO NACIONAL DE INVESTIGACION Y CAPACITACION DE TELECOMUNICACIONES DE LA UNIVERSIDAD NACIONAL DE INGENIERIA</string>
+    <string name="IMCA">IMCA</string>
+    <string name="DESIMCA">Instituto de Matemática y Ciencias Afines</string>
+
     <string-array name="opcionmap">\
         <item> Normal</item>
         <item> Satelite</item>

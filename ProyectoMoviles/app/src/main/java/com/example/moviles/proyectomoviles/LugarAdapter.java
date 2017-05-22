@@ -9,9 +9,7 @@ import android.widget.TextView;
 
 import java.util.List;
 
-/**
- * Created by visoc on 22/05/17.
- */
+
 
 public class LugarAdapter extends RecyclerView.Adapter<LugarAdapter.LugarViewHolder> {
     private List<lugar> items;

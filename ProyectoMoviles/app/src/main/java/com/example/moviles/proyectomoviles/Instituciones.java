@@ -18,18 +18,18 @@ public class Instituciones extends AppCompatActivity {
         setContentView(R.layout.activity_instituciones);
         List items = new ArrayList();
 
-        items.add(new lugar(R.drawable.cticuni, "CTIC","Centro de Tecnologías de Información y Comunicaciones" ));
-        items.add(new lugar(R.drawable.cismid, "CISMID","Centro Peruano Japones de investigaciones sismica y mitigacion de desastres" ));
+        items.add(new lugar(R.drawable.cticuni, getString(R.string.CTIC).toString(),getString(R.string.DESCTIC).toString() ));
+        items.add(new lugar(R.drawable.cismid, getString(R.string.CISMID).toString(),getString(R.string.DESCISMID).toString()));
+        items.add(new lugar(R.drawable.inictel, getString(R.string.INICTEL).toString(),getString(R.string.DESINICTEL).toString()));
+        items.add(new lugar(R.drawable.imca, getString(R.string.IMCA).toString(),getString(R.string.DESIMCA).toString()));
 
-// Obtener el Recycler
+        // Obtener el Recycler
         recycler = (RecyclerView) findViewById(R.id.reciclador);
         recycler.setHasFixedSize(true);
-
-// Usar un administrador para LinearLayout
+        // Usar un administrador para LinearLayout
         lManager = new LinearLayoutManager(this);
         recycler.setLayoutManager(lManager);
-
-// Crear un nuevo adaptador
+        // Crear un nuevo adaptador
         adapter = new LugarAdapter(items);
         recycler.setAdapter(adapter);
     }
