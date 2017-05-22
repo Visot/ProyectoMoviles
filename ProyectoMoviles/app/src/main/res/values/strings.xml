@@ -19,7 +19,8 @@
     <string name="no_location">Localización no encontrada</string>
     <string name="cam">Camara</string>
     <string name="map">Mapa</string>
-
+    <string name="CTIC">CTIC</string>
+    <string name="DESCTIC">El Centro de Tecnologías de Información y Comunicaciones de la Universidad Nacional de Ingeniería (CTIC-UNI) fue inaugurado en el año 2008. Es un centro que absorbe la actividades del Centro de Cómputo de la UNI (CC-UNI) y El Centro de Aplicaciones Telemáticas (CETEL-UNI).</string>
     <string-array name="opcionmap">\
         <item> Normal</item>
         <item> Satelite</item>
