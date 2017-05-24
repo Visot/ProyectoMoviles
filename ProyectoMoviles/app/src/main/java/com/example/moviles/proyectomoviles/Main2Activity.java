@@ -70,7 +70,6 @@ public class Main2Activity extends AppCompatActivity implements
                         return true;
                     }
                 });
-
     }
     @Override
     public void onClick(View v) {
