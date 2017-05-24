@@ -1,12 +1,8 @@
 package com.example.moviles.proyectomoviles;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private Button logUp;
+    private Button tmp;
 
     private EditText correoLogup;
     private EditText passLogup;
@@ -68,6 +65,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         logUp = (Button)findViewById(R.id.logup);
         logUp.setOnClickListener(this);
+
+        tmp = (Button)findViewById(R.id.tmp);
+        tmp.setOnClickListener(this);
     }
 
     @Override
@@ -83,12 +83,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         boolean tamPass = password.length()<8;
 
 
-        if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
+        if(v.getId() == R.id.logup) {
+            if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
+                intencion= new Intent(getApplicationContext(),Main2Activity.class);
+                startActivity(intencion );
+            }
 
-            intencion= new Intent(getApplicationContext(),Main2Activity.class);
+        }else if(v.getId() == R.id.tmp){
+            intencion= new Intent(getApplicationContext(), pestanas.class);
             startActivity(intencion);
         }
-
 
     }
 
