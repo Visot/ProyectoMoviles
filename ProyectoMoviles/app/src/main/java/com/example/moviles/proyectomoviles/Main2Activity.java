@@ -23,8 +23,7 @@ public class Main2Activity extends AppCompatActivity implements
         mapa.setOnClickListener(this);
         Button camara = (Button) findViewById(R.id.Camara);
         camara.setOnClickListener(this);
-        Button lugar = (Button) findViewById(R.id.lugar);
-        lugar.setOnClickListener(this);
+
 
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
@@ -78,10 +77,8 @@ public class Main2Activity extends AppCompatActivity implements
         Intent intencion;
         if(v.getId() == R.id.Mapa)
             intencion = new Intent(getApplicationContext(), MapsActivity.class);
-        else if(v.getId()==R.id.Camara)
-            intencion = new Intent(getApplicationContext(), Camara.class);
         else
-            intencion= new Intent(getApplicationContext(), Instituciones.class);
+            intencion = new Intent(getApplicationContext(), Camara.class);
         startActivity(intencion);
     }
 }
