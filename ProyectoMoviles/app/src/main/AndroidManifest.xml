@@ -44,7 +44,8 @@
         <activity
             android:name=".MapsActivity"
             android:label="@string/title_activity_maps" />
-        <activity android:name=".Main2Activity" />
+        <activity android:name=".Main2Activity"
+            android:theme="@style/AppTheme"/>
         <activity android:name=".Instituciones" />
         <activity
             android:name=".pestanas"

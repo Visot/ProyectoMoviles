@@ -33,6 +33,9 @@
     <string name="IMCA">IMCA</string>
     <string name="DESIMCA">Instituto de Matemática y Ciencias Afines</string>
 
+    <string name="open_drawer">Abierto</string>
+    <string name="close_drawer">Cerrado</string>
+
     <string-array name="opcionmap">\
         <item> Normal</item>
         <item> Satelite</item>
