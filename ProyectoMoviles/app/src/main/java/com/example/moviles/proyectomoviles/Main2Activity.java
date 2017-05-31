@@ -3,12 +3,14 @@ package com.example.moviles.proyectomoviles;
 import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class Main2Activity extends AppCompatActivity implements
         View.OnClickListener {
@@ -34,15 +36,21 @@ public class Main2Activity extends AppCompatActivity implements
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
-                        boolean fragmentTransaction = false;
-                        Fragment fragment = null;
                         Intent intencion;
+
+                        if(menuItem.isChecked()) menuItem.setChecked(false);
+                        else menuItem.setChecked(true);
+
+                        drawerLayout.closeDrawers();
+
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
-
-                                intencion= new Intent(getApplicationContext(),Main2Activity.class);
-                                startActivity(intencion );
+                                Toast.makeText(getApplicationContext(),"Home", Toast.LENGTH_SHORT).show();
+                                Main2Fragment fragment = new Main2Fragment();
+                                android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+                                fragmentTransaction.replace(R.id.frame,fragment);
+                                fragmentTransaction.commit();
                                 break;
 
                             case R.id.menu_seccion_2:
@@ -54,19 +62,10 @@ public class Main2Activity extends AppCompatActivity implements
                                 intencion= new Intent(getApplicationContext(),MainActivity.class);
                                 startActivity(intencion );
                                 break;
+                            default:
+                                return true;
 
                         }
-
-                        if(fragmentTransaction) {
-                            getSupportFragmentManager().beginTransaction()
-                                    .replace(R.id.content_frame, fragment)
-                                    .commit();
-
-                            menuItem.setChecked(true);
-                            getSupportActionBar().setTitle(menuItem.getTitle());
-                        }
-
-                        drawerLayout.closeDrawers();
 
                         return true;
                     }
