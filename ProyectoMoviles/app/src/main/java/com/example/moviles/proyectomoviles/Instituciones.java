@@ -17,7 +17,6 @@ public class Instituciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instituciones);
         List items = new ArrayList();
-
         items.add(new lugar(R.drawable.cticuni, getString(R.string.CTIC).toString(),getString(R.string.DESCTIC).toString() ));
         items.add(new lugar(R.drawable.cismid, getString(R.string.CISMID).toString(),getString(R.string.DESCISMID).toString()));
         items.add(new lugar(R.drawable.inictel, getString(R.string.INICTEL).toString(),getString(R.string.DESINICTEL).toString()));
@@ -31,6 +30,6 @@ public class Instituciones extends AppCompatActivity {
         recycler.setLayoutManager(lManager);
         // Crear un nuevo adaptador
         adapter = new LugarAdapter(items);
-        recycler.setAdapter(adapter);
+        recycler.setAdapter(adapter);//inicia el llenado de los cardview
     }
 }
