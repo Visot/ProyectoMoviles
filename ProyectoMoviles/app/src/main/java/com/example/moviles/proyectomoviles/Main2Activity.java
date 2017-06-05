@@ -21,7 +21,7 @@ import android.view.*;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFragmentInteractionListener{
+public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFragmentInteractionListener, FragmentTwo.OnFragmentInteractionListener{
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -123,10 +123,12 @@ public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFr
 
                                 break;
                             case R.id.menu_seccion_2:
-                                intencion = new Intent(getApplicationContext(), Instituciones.class);
+                                Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
+                                CambiaFragment(FragmentTwo.class);
+                                /*intencion = new Intent(getApplicationContext(), Instituciones.class);
                                 startActivity(intencion);
-                                return true;
-
+                                return true;*/
+                                break;
                             case R.id.menu_opcion_2:
                                 intencion = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intencion);
