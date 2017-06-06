@@ -57,20 +57,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intencion2;
+        Intent intencion;
         String nombre=correoLogin.getText().toString();
         String password=passLogin.getText().toString();
 
+        switch(v.getId()){
+            case R.id.login:
+                if(validarLogueo(nombre,password)){
+                    intencion= new Intent(getApplicationContext(),Main2Activity.class);
+                    startActivity(intencion);
+                }
+                break;
+
+            case R.id.register:
+                intencion= new Intent(getApplicationContext(), Register.class);
+                startActivity(intencion );
+                break;
+            default:
+                break;
+        }
+
+
 
         if(v.getId() == R.id.login) {
-            if(validarLogueo(nombre,password)){
-                intencion2= new Intent(getApplicationContext(),Main2Activity.class);
-                startActivity(intencion2 );
-            }
+
 
         }else if(v.getId() == R.id.register){
-            intencion2= new Intent(getApplicationContext(), Register.class);
-            startActivity(intencion2 );
+
         }
     }
 

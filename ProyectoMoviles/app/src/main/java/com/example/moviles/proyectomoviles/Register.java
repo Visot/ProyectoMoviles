@@ -12,6 +12,7 @@ import java.util.regex.Pattern;
 
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private Button logUp;
+    private Button logIn;
     private Button tmp;
 
     private EditText correoLogup;
@@ -68,6 +69,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
 
         tmp = (Button)findViewById(R.id.tmp);
         tmp.setOnClickListener(this);
+
+        logIn = (Button)findViewById(R.id.login);
+        logIn.setOnClickListener(this);
     }
 
     @Override
@@ -83,16 +87,32 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         boolean tamPass = password.length()<8;
 
 
-        if(v.getId() == R.id.logup) {
-            if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
-                intencion= new Intent(getApplicationContext(),Main2Activity.class);
-                startActivity(intencion );
-            }
+        switch(v.getId()){
 
-        }else if(v.getId() == R.id.tmp){
-            intencion= new Intent(getApplicationContext(), pestanas.class);
-            startActivity(intencion);
+            case R.id.logup :
+                if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
+                    intencion= new Intent(getApplicationContext(),Main2Activity.class);
+                    startActivity(intencion );
+                }
+                break;
+
+            case R.id.login:
+                intencion= new Intent(getApplicationContext(), MainActivity
+                        .class);
+                startActivity(intencion);
+                break;
+
+            case R.id.tmp:
+                intencion= new Intent(getApplicationContext(), pestanas.class);
+                startActivity(intencion);
+
+                break;
+
+            default:
+                break;
+
         }
+
 
     }
 
