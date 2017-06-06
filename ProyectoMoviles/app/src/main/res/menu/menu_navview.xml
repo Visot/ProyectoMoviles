@@ -13,7 +13,7 @@
             android:title="@string/Lugares"/>
         <item
             android:id="@+id/menu_seccion_3"
-            android:icon="@drawable/cosmos"
+            android:icon="@drawable/historial"
             android:checked="false"
             android:title="@string/Historial"/>
     </group>
