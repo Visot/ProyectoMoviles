@@ -8,20 +8,20 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.app.FragmentTransaction;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
-import android.widget.Button;
 import android.widget.Toast;
 
-public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFragmentInteractionListener, FragmentTwo.OnFragmentInteractionListener{
+import com.example.moviles.proyectomoviles.Fragments.Instituciones;
+import com.example.moviles.proyectomoviles.Fragments.Opciones;
+
+public class Main2Activity extends AppCompatActivity implements Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener{
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -61,7 +61,7 @@ public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFr
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
-            fragmentClass = FragmentOne.class;
+            fragmentClass = Opciones.class;
             try {
                 fragment = (Fragment) fragmentClass.newInstance();
             } catch (Exception e) {
@@ -113,8 +113,8 @@ public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFr
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
                                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
-                                CambiaFragment(FragmentOne.class);
-                                //fragmentClass = FragmentOne.class;
+                                CambiaFragment(Opciones.class);
+                                //fragmentClass = Opciones.class;
                                 /*android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
                                 fragmentTransaction.replace(R.id.frame, fragment);
                                 fragmentTransaction.commit();
@@ -124,7 +124,7 @@ public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFr
                                 break;
                             case R.id.menu_seccion_2:
                                 Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
-                                CambiaFragment(FragmentTwo.class);
+                                CambiaFragment(Instituciones.class);
                                 /*intencion = new Intent(getApplicationContext(), Instituciones.class);
                                 startActivity(intencion);
                                 return true;*/
