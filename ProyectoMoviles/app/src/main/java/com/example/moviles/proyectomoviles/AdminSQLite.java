@@ -14,7 +14,7 @@ public class AdminSQLite extends SQLiteOpenHelper{
     public static final String TAG = AdminSQLite.class.getSimpleName();
 
 
-    public static final String DB_name = "user.db";
+    public static final String DB_name = "db_unimap.db";
     public static final int DB_version = 1;
 
     public static final String Users_table = "users";
