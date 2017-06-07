@@ -10,7 +10,7 @@
 
     <!-- The main content view -->
 
-    <include layout="@layout/activity_main2" />
+    <include layout="@layout/opciones" />
 
     <FrameLayout
         android:id="@+id/frame"

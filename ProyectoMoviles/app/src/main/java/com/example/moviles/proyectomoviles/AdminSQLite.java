@@ -90,7 +90,7 @@ public class AdminSQLite extends SQLiteOpenHelper{
         SQLiteDatabase db = this.getWritableDatabase();
         db.execSQL("update " + Users_table + " set pass = '" + newpass + "' where email = '"+correo +"';"  );
         db.close();
-        Log.d(TAG,"Password Actualizado ");
+        //Log.d(TAG,"Password Actualizado ");
 
     }
 

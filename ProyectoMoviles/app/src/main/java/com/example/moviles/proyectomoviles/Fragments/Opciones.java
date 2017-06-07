@@ -62,7 +62,7 @@ public class Opciones extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.activity_main2, container, false);
+        View vista= inflater.inflate(R.layout.opciones, container, false);
         Button mapa = (Button) vista.findViewById(R.id.Mapa);
         mapa.setOnClickListener(this);
         Button camara = (Button) vista.findViewById(R.id.Camara);
@@ -70,18 +70,6 @@ public class Opciones extends Fragment implements
         return vista;
     }
 
-    /*@Override
-    public void onClick(View v) {
-        //do what you want to do when button is clicked
-        switch (v.getId()) {
-            case R.id.textView_help:
-                switchFragment(HelpFragment.TAG);
-                break;
-            case R.id.textView_settings:
-                switchFragment(SettingsFragment.TAG);
-                break;
-        }
-    }*/
     @Override
     public void onClick(View v) {
         Intent intencion;
@@ -120,7 +108,7 @@ public class Opciones extends Fragment implements
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
+     * to the activity and potentially other layout.fragments contained in that
      * activity.
      * <p/>
      * See the Android Training lesson <a href=
