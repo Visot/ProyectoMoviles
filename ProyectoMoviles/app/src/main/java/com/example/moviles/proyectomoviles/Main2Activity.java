@@ -122,7 +122,8 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
 
                             case R.id.menu_seccion_2:
                                 Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
-                                CambiaFragment(Instituciones.class);
+                                intencion = new Intent(getApplicationContext(), pestanas.class);
+                                startActivity(intencion);
                                 break;
 
                             case R.id.menu_opcion_2:

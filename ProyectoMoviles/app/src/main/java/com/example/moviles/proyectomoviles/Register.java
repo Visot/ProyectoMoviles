@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
 public class Register extends AppCompatActivity implements View.OnClickListener{
     private Button logUp;
     private Button logIn;
-    private Button tmp;
+
 
     private EditText correoLogup;
     private EditText passLogup;
@@ -71,8 +71,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         logUp = (Button)findViewById(R.id.logup);
         logUp.setOnClickListener(this);
 
-        tmp = (Button)findViewById(R.id.tmp);
-        tmp.setOnClickListener(this);
 
         logIn = (Button)findViewById(R.id.login);
         logIn.setOnClickListener(this);
@@ -101,12 +99,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
                 intencion= new Intent(getApplicationContext(), MainActivity
                         .class);
                 startActivity(intencion);
-                break;
-
-            case R.id.tmp:
-                intencion= new Intent(getApplicationContext(), pestanas.class);
-                startActivity(intencion);
-
                 break;
 
             default:
