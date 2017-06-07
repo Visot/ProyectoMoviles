@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.AdminSQLite;
-import com.example.moviles.proyectomoviles.Camara;
 import com.example.moviles.proyectomoviles.Main2Activity;
 import com.example.moviles.proyectomoviles.MapsActivity;
 import com.example.moviles.proyectomoviles.R;
@@ -41,7 +40,6 @@ public class Configuraciones extends Fragment implements
     private OnFragmentInteractionListener mListener;
 
     public Configuraciones() {
-
         // Required empty public constructor
     }
 
@@ -58,7 +56,6 @@ public class Configuraciones extends Fragment implements
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-        //db = new AdminSQLite(this);
         return fragment;
     }
 
@@ -87,18 +84,6 @@ public class Configuraciones extends Fragment implements
         return vista;
     }
 
-    /*@Override
-    public void onClick(View v) {
-        //do what you want to do when button is clicked
-        switch (v.getId()) {
-            case R.id.textView_help:
-                switchFragment(HelpFragment.TAG);
-                break;
-            case R.id.textView_settings:
-                switchFragment(SettingsFragment.TAG);
-                break;
-        }
-    }*/
     private void CambiaFragment(Class C){
         Fragment fragment=null;
         Class fragmentClass=C;
@@ -122,7 +107,8 @@ public class Configuraciones extends Fragment implements
             String nueva=contranueva.getText().toString();
             String repetida=contrarepetir.getText().toString();
             if(nueva.equals(repetida)){
-                //db.updateUserPass(nueva,sesion.getUserValues()[2]);
+                db.updateUserPass(nueva,sesion.getUserValues()[2]);
+                Toast.makeText(getActivity().getApplicationContext(), "Cambio la contraseña", Toast.LENGTH_SHORT).show();
             }
             else
                 Toast.makeText(getActivity().getApplicationContext(), "No son iguales", Toast.LENGTH_SHORT).show();

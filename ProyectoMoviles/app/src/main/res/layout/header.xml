@@ -30,7 +30,7 @@
         android:layout_marginLeft="20dp"
         android:text="@string/usuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
-        android:textColor="@color/colorBlanco"
+        android:textColor="@color/colorNegro"
         android:textStyle="bold" />
 
     <TextView
