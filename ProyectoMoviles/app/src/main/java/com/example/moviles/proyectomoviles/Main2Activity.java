@@ -18,10 +18,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.*;
 import android.widget.Toast;
 
+import com.example.moviles.proyectomoviles.Fragments.Configuraciones;
 import com.example.moviles.proyectomoviles.Fragments.Instituciones;
 import com.example.moviles.proyectomoviles.Fragments.Opciones;
 
-public class Main2Activity extends AppCompatActivity implements Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener{
+public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener{
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -58,6 +59,7 @@ public class Main2Activity extends AppCompatActivity implements Opciones.OnFragm
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //toolbar.setOnMenuItemClickListener();
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
@@ -161,7 +163,7 @@ public class Main2Activity extends AppCompatActivity implements Opciones.OnFragm
             e.printStackTrace();
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
     }
     /*@Overrides
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -176,18 +178,25 @@ public class Main2Activity extends AppCompatActivity implements Opciones.OnFragm
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-
+        //Intent intencion;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(getApplicationContext(), "Configuracion", Toast.LENGTH_SHORT).show();
+            CambiaFragment(Configuraciones.class);
+
             return true;
         }
+        drawerLayout.closeDrawer(GravityCompat.START);
 
         return super.onOptionsItemSelected(item);
     }
 
     @Override
     public void onBackPressed() {
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if(getFragmentManager().getBackStackEntryCount()>1)
+            getFragmentManager().popBackStack();
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
