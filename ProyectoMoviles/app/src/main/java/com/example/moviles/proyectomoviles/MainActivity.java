@@ -93,13 +93,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public boolean login(){
-        Intent intencion;
         String correo =correoLogin.getText().toString();
         String password=passLogin.getText().toString();
+        String[] datos;
+        String[] datostmp;
 
 
-        if(db.getUser(correo,password)){
+        if(db.getUserLogin(correo,password)){
+
             sesion.setLoggedIn(true);
+            datos = db.getUserValues(correo);
+            sesion.setUserValues(datos[0],datos[1],datos[2]);
+            datostmp = sesion.getUserValues();
+            Toast.makeText(getApplicationContext(), datostmp[0],Toast.LENGTH_SHORT).show();
             return true;
         }else {
             Toast.makeText(getApplicationContext(), "Datos Erroneos",Toast.LENGTH_SHORT).show();

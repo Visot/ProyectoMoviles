@@ -28,6 +28,7 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
     NavigationView navView;
     Toolbar toolbar;
     private Cursor fila;
+    private Sesion sesion;
     //ActionBar actionBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
 
 
 
+
+        sesion = new Sesion(this);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -132,6 +135,8 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
                                 return true;*/
                                 break;
                             case R.id.menu_opcion_2:
+                                sesion.setLoggedIn(false);
+                                finish();
                                 intencion = new Intent(getApplicationContext(), MainActivity.class);
                                 startActivity(intencion);
                                 return true;
