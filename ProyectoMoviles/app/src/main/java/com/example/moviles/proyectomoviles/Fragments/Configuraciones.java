@@ -10,10 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
+import com.example.moviles.proyectomoviles.AdminSQLite;
 import com.example.moviles.proyectomoviles.Camara;
+import com.example.moviles.proyectomoviles.Main2Activity;
 import com.example.moviles.proyectomoviles.MapsActivity;
 import com.example.moviles.proyectomoviles.R;
+import com.example.moviles.proyectomoviles.Sesion;
 
 
 public class Configuraciones extends Fragment implements
@@ -27,9 +32,16 @@ public class Configuraciones extends Fragment implements
     private String mParam1;
     private String mParam2;
 
+    private Sesion sesion;
+
+    private AdminSQLite db;
+
+    EditText contranueva;
+    EditText contrarepetir;
     private OnFragmentInteractionListener mListener;
 
     public Configuraciones() {
+
         // Required empty public constructor
     }
 
@@ -46,13 +58,15 @@ public class Configuraciones extends Fragment implements
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
-
+        //db = new AdminSQLite(this);
         return fragment;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = new AdminSQLite(getActivity().getApplicationContext());
+        sesion = new Sesion(getActivity().getApplicationContext());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -64,6 +78,8 @@ public class Configuraciones extends Fragment implements
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View vista= inflater.inflate(R.layout.configuraciones, container, false);
+        contranueva = (EditText) vista.findViewById(R.id.Nueva);
+        contrarepetir = (EditText) vista.findViewById(R.id.Repetida);
         Button cambiar = (Button) vista.findViewById(R.id.Cambiar);
         cambiar.setOnClickListener(this);
         Button menu = (Button) vista.findViewById(R.id.Menu);
@@ -98,13 +114,19 @@ public class Configuraciones extends Fragment implements
 
     @Override
     public void onClick(View v) {
-        Intent intencion;
-        CambiaFragment(Opciones.class);
-        /*if(v.getId() == R.id.Menu)
-            intencion = new Intent(getActivity(), MapsActivity.class);
-        else
-            intencion = new Intent(getActivity(), Camara.class);
-        startActivity(intencion);*/
+
+        if(v.getId() == R.id.Menu)
+            CambiaFragment(Opciones.class);
+        else if(v.getId() == R.id.Cambiar)
+        {
+            String nueva=contranueva.getText().toString();
+            String repetida=contrarepetir.getText().toString();
+            if(nueva.equals(repetida)){
+                //db.updateUserPass(nueva,sesion.getUserValues()[2]);
+            }
+            else
+                Toast.makeText(getActivity().getApplicationContext(), "No son iguales", Toast.LENGTH_SHORT).show();
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -132,16 +154,6 @@ public class Configuraciones extends Fragment implements
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);

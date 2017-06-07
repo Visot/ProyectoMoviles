@@ -30,7 +30,7 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
     Toolbar toolbar;
     private Cursor fila;
     private Sesion sesion;
-    //ActionBar actionBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,7 +82,7 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                Snackbar.make(view, "Hacer algo", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             }
         });
@@ -110,8 +110,6 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
 
                         Intent intencion;
-                        //Fragment fragment=null;
-                        //Class fragmentClass=null;
 
                         if (menuItem.isChecked()) menuItem.setChecked(false);
                         else menuItem.setChecked(true);
@@ -120,21 +118,13 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
                             case R.id.menu_seccion_1:
                                 Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                                 CambiaFragment(Opciones.class);
-                                //fragmentClass = Opciones.class;
-                                /*android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                                fragmentTransaction.replace(R.id.frame, fragment);
-                                fragmentTransaction.commit();
-                                drawerLayout.closeDrawer(GravityCompat.START);
-                                return true;*/
-
                                 break;
+
                             case R.id.menu_seccion_2:
                                 Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
                                 CambiaFragment(Instituciones.class);
-                                /*intencion = new Intent(getApplicationContext(), Instituciones.class);
-                                startActivity(intencion);
-                                return true;*/
                                 break;
+
                             case R.id.menu_opcion_2:
                                 sesion.setLoggedIn(false);
                                 finish();
@@ -186,15 +176,6 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
     }
-    /*@Overrides
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }*/
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -227,7 +208,6 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
 
     @Override
     public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
