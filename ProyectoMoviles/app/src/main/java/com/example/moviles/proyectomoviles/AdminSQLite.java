@@ -86,15 +86,11 @@ public class AdminSQLite extends SQLiteOpenHelper{
 
     }
 
-    public void updateUserPass (String pass,String Correo){
+    public void updateUserPass (String newpass,String correo){
         SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues tupla = new ContentValues();
-        tupla.put(column_pass,pass);
-
-        long id = db.update(Users_table,tupla, "email="+Correo,null);
+        db.execSQL("update " + Users_table + " set pass = '" + newpass + "' where email = '"+correo +"';"  );
         db.close();
-        Log.d(TAG,"Usuario Actualizado "+id);
-
+        Log.d(TAG,"Password Actualizado ");
 
     }
 
