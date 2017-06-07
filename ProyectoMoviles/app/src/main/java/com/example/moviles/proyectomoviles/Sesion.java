@@ -14,16 +14,16 @@ public class Sesion {
 
     public Sesion(Context context){
         this.context = context;
-        prefs = context.getSharedPreferences("db_unimap",context.MODE_PRIVATE);
+        prefs = context.getSharedPreferences("myapp",context.MODE_PRIVATE);
         editor = prefs.edit();
     }
 
-    public void setLogin(boolean login){
+    public void setLoggedIn(boolean login){
         editor.putBoolean("logInMode",login);
         editor.commit();
     }
 
-    public boolean logIn(){
+    public boolean loggedIn(){
         return prefs.getBoolean("logInMode", false);
     }
 }

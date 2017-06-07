@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -20,12 +21,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
     private EditText nameLogup;
     private EditText repassLogup;
     private EditText lastnameLogup;
+    private AdminSQLite db;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        db = new AdminSQLite(this);
 
         correoLogup =(EditText)findViewById(R.id.correoLogup);
         passLogup =(EditText)findViewById(R.id.passLogup);
@@ -43,14 +47,14 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             }
         });
 
-        repassLogup.addTextChangedListener(new PassValidator(repassLogup) {
-            @Override
-            public void validate(EditText editText, String text) {
-                //Implementamos la validación que queramos
-                if( !text.equals(passLogup.getText().toString()) )
-                    repassLogup.setError( "La contraseña no es la misma" );
-            }
-        });
+//        repassLogup.addTextChangedListener(new PassValidator(repassLogup) {
+//            @Override
+//            public void validate(EditText editText, String text) {
+//                //Implementamos la validación que queramos
+//                if( !text.equals(passLogup.getText().toString()) )
+//                    repassLogup.setError( "La contraseña no es la misma" );
+//            }
+//        });
 
         correoLogup.addTextChangedListener(new PassValidator(correoLogup) {
             @Override
@@ -90,10 +94,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
         switch(v.getId()){
 
             case R.id.logup :
-                if(!nombre.equals("")&!lastname.equals("")&!correo.equals("")&!password.equals("")&!repassword.equals("")&confPass&!tamPass&isCorreoValid()){
-                    intencion= new Intent(getApplicationContext(),Main2Activity.class);
-                    startActivity(intencion );
-                }
+                registrarUsuario();
                 break;
 
             case R.id.login:
@@ -111,6 +112,31 @@ public class Register extends AppCompatActivity implements View.OnClickListener{
             default:
                 break;
 
+        }
+
+
+    }
+
+
+    public void registrarUsuario(){
+        Intent intencion;
+        String name = nameLogup.getText().toString();
+        String lastname = lastnameLogup.getText().toString();
+        String email = correoLogup.getText().toString();
+        String password =passLogup.getText().toString();
+        String repassword =repassLogup.getText().toString();
+
+        boolean confPass =password.equals(repassword);
+        boolean tamPass = password.length()<8;
+
+        if(!name.isEmpty()&& !email.isEmpty() && !lastname.isEmpty() && !password.isEmpty() && !repassword.isEmpty() && confPass && !tamPass && isCorreoValid()){
+            db.addUser(name,lastname,email,password);
+            Toast.makeText(getApplicationContext(),"Usuario Registrado",Toast.LENGTH_SHORT).show();
+            intencion= new Intent(getApplicationContext(),MainActivity.class);
+            startActivity(intencion );
+            finish();
+        }else{
+            Toast.makeText(getApplicationContext(),"Complete los datos",Toast.LENGTH_SHORT).show();
         }
 
 
