@@ -130,10 +130,10 @@ public class pestanas extends AppCompatActivity {
                     TabCentros tab1 = new TabCentros();
                     return tab1;
                 case 1:
-                    TabFacultades tab2 = new TabFacultades();
+                    TabOficinas tab2 = new TabOficinas();
                     return tab2;
                 case 2:
-                    TabOficinas tab3 = new TabOficinas();
+                    TabFacultades tab3 = new TabFacultades();
                     return tab3;
                 default:
                     return null;
