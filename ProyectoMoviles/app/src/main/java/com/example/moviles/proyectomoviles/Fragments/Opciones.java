@@ -1,4 +1,4 @@
-package com.example.moviles.proyectomoviles;
+package com.example.moviles.proyectomoviles.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.moviles.proyectomoviles.Camara;
+import com.example.moviles.proyectomoviles.MapsActivity;
+import com.example.moviles.proyectomoviles.R;
 
-public class FragmentOne extends Fragment implements
+
+public class Opciones extends Fragment implements
         View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +28,7 @@ public class FragmentOne extends Fragment implements
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentOne() {
+    public Opciones() {
         // Required empty public constructor
     }
 
@@ -32,13 +36,11 @@ public class FragmentOne extends Fragment implements
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentOne.
+     * @return A new instance of fragment Opciones.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentOne newInstance(String param1, String param2) {
-        FragmentOne fragment = new FragmentOne();
+    public static Opciones newInstance(String param1, String param2) {
+        Opciones fragment = new Opciones();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
