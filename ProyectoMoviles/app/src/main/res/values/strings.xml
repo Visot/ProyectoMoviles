@@ -48,4 +48,11 @@
     <string name="oficinas">Oficinas</string>
     <string name="facultades">Facultades</string>
     <string name="centros_Inv">Centros Inv.</string>
+
+    <string name="pref_app_key">preferencias</string>
+    <string name="name_key">nameKey</string>
+    <string name="lastname_key">lastnameKey</string>
+    <string name="correo_key">correoKey</string>
+    <string name="pass_key">passKey</string>
+
 </resources>

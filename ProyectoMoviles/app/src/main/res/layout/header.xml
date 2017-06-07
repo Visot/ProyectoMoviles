@@ -12,9 +12,9 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circle_image"
-        android:layout_width="100px"
-        android:layout_height="100px"
-        android:layout_marginTop="20dp"
+        android:layout_width="120px"
+        android:layout_height="120px"
+        android:layout_marginTop="40dp"
         android:layout_marginLeft="20dp"
         android:scaleType="centerCrop"
         android:src="@drawable/cosmos"
@@ -22,15 +22,27 @@
         app:border_width="1dp" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/Usuario0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="40dp"
+        android:layout_marginLeft="20dp"
         android:text="@string/usuario"
         android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
         android:textColor="@color/colorBlanco"
         android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/Correo0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="20dp"
+        android:text="Correo"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large.Inverse"
+        android:textColor="@color/colorBlanco"
+        android:textStyle="bold"/>
 
 </FrameLayout>

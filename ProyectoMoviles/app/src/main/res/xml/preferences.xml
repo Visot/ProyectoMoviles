@@ -3,10 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <PreferenceCategory android:title="User Settings">
         <EditTextPreference
-            android:key="username"
+            android:key="nameKey"
             android:title="User Name"/>
         <EditTextPreference
-            android:key="password"
-            android:title="Password"/>
+            android:key="lastnameKey"
+            android:title="Apellido"/>
+        <EditTextPreference
+            android:key="correoKey"
+            android:title="Correo"/>
     </PreferenceCategory>
 </PreferenceScreen>

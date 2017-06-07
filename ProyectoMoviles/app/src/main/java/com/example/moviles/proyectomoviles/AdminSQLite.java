@@ -14,7 +14,7 @@ public class AdminSQLite extends SQLiteOpenHelper{
     public static final String TAG = AdminSQLite.class.getSimpleName();
 
 
-    public static final String DB_name = "user.db";
+    public static final String DB_nombre = "db_unimaps.db";
     public static final int DB_version = 1;
 
     public static final String Users_table = "users";
@@ -32,15 +32,18 @@ public class AdminSQLite extends SQLiteOpenHelper{
             + column_pass + " TEXT "
             + ");";
 
-    public AdminSQLite(Context context, String nombre,
-                       SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, nombre, factory, version);
+
+    public AdminSQLite(Context context) {
+        super(context, DB_nombre, null, DB_version);
     }
 
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_USERS);
+        db.execSQL("INSERT INTO "+ Users_table+ " (names,lastname,pass,email) VALUES ('UniMaps','UNI','12345678','unimaps@gmail.com'); ");
+
+
     }
 
     @Override
@@ -65,10 +68,10 @@ public class AdminSQLite extends SQLiteOpenHelper{
 
     }
 
-    public boolean getUser(String email, String pass){
+    public boolean getUserLogin(String email, String pass){
 
-        String selectQuery = "select * from" + Users_table + " where " +
-                column_email + " = " + " '"+email+"' " + " and " + column_pass + " = " + " '"+pass+"' ";
+        String selectQuery = "select * from " + Users_table + " where " +
+                column_email + " = " + " '"+email+"' " + " and " + column_pass + " = " + " '"+pass+"' ;";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -82,4 +85,35 @@ public class AdminSQLite extends SQLiteOpenHelper{
         return false;
 
     }
+
+    public void updateUserPass (String pass,String Correo){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues tupla = new ContentValues();
+        tupla.put(column_pass,pass);
+
+        long id = db.update(Users_table,tupla, "email="+Correo,null);
+        db.close();
+        Log.d(TAG,"Usuario Actualizado "+id);
+
+
+    }
+
+
+    public String [] getUserValues (String email){
+        String[] datos= null;
+//        String[] campos = new String[] {column_name, column_lastname,column_email};
+//        String[] args = new String[] {email};
+        String selectQuery = "select names, lastname, email from " + Users_table + " where " +
+                column_email + " = " + " '"+email+"'  ;";
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor c = db.rawQuery(selectQuery, null);
+
+        if (c.moveToFirst()) {
+                datos = new String[] {c.getString(0),c.getString(1),c.getString(2)};
+        }
+        return datos;
+    }
+
+
+
 }

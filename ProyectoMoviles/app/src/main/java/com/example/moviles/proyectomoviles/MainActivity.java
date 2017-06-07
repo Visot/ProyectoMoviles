@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -23,10 +24,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private EditText passLogin;
     private Button login;
     private Button register;
+    private AdminSQLite db;
+    private Sesion sesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Intent intent;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        db = new AdminSQLite(this);
+        sesion = new Sesion(this);
 
         correoLogin =(EditText)findViewById(R.id.mailLogin);
         passLogin =(EditText)findViewById(R.id.passLogin);
@@ -37,17 +44,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         login.setOnClickListener(this);
         register.setOnClickListener(this);
 
+        if(sesion.loggedIn()){
+            intent = new Intent(getApplicationContext(),Main2Activity.class);
+            startActivity(intent);
+            finish();
+        }
 
-        correoLogin.addTextChangedListener(new PassValidator(correoLogin) {
-            @Override
-            public void validate(EditText editText, String text) {
-                //Implementamos la validación que queramos
+//        correoLogin.addTextChangedListener(new PassValidator(correoLogin) {
+//            @Override
+//            public void validate(EditText editText, String text) {
+//                //Implementamos la validación que queramos
+//
+//
+//                if(!isCorreoValid())
+//                    correoLogin.setError( "No es correo valido" );
+//            }
+//        });
 
 
-                if(!isCorreoValid())
-                    correoLogin.setError( "No es correo valido" );
-            }
-        });
 
     }
 
@@ -58,14 +72,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
         Intent intencion;
-        String nombre=correoLogin.getText().toString();
-        String password=passLogin.getText().toString();
+
 
         switch(v.getId()){
             case R.id.login:
-                if(validarLogueo(nombre,password)){
-                    intencion= new Intent(getApplicationContext(),Main2Activity.class);
-                    startActivity(intencion);
+                if (login()){
+                    intencion= new Intent(getApplicationContext(), Main2Activity.class);
+                    startActivity(intencion );
                 }
                 break;
 
@@ -77,30 +90,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
+    }
+
+    public boolean login(){
+        String correo =correoLogin.getText().toString();
+        String password=passLogin.getText().toString();
+        String[] datos;
+        String[] datostmp;
 
 
-        if(v.getId() == R.id.login) {
+        if(db.getUserLogin(correo,password)){
 
-
-        }else if(v.getId() == R.id.register){
-
+            sesion.setLoggedIn(true);
+            datos = db.getUserValues(correo);
+            sesion.setUserValues(datos[0],datos[1],datos[2]);
+            datostmp = sesion.getUserValues();
+            Toast.makeText(getApplicationContext(), datostmp[0],Toast.LENGTH_SHORT).show();
+            return true;
+        }else {
+            Toast.makeText(getApplicationContext(), "Datos Erroneos",Toast.LENGTH_SHORT).show();
+            return  false;
         }
-    }
-
-    public boolean validarLogueo(String c, String p){
-        if(c.equals("unimaps@gmail.com")&p.equals("12345678")) return true;
-        else return false;
 
     }
 
-    public boolean isCorreoValid(){
-
-        Pattern pattern;
-        Matcher matcher;
-        String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(.[A-Za-z0-9]+)*(.[A-Za-z]{2,})$";
-        pattern = Pattern.compile(EMAIL_PATTERN);
-        matcher = pattern.matcher(correoLogin.getText().toString());
-        return matcher.matches();
-
-    }
 }
