@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.*;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.Fragments.Configuraciones;
@@ -157,7 +158,22 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
                         return true;
                     }
                 });
+        getProfile();
     }
+
+    private void getProfile() {
+        //Para obtener los datos previamente guardados
+        // simplemente empleamos el método getString()
+        // del objeto SharedPreferences
+        View hView =  navView.getHeaderView(0);
+        TextView usuario = (TextView)hView.findViewById(R.id.Usuario0);
+        TextView correo=(TextView)hView.findViewById(R.id.Correo0);
+        String[] datostmp;
+        datostmp=sesion.getUserValues();
+        usuario.setText(datostmp[0]+" "+datostmp[1]);
+        correo.setText(datostmp[2]);
+    }
+
 
     private void CambiaFragment(Class C){
         Fragment fragment=null;
