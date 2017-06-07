@@ -39,18 +39,18 @@ public class Main2Activity extends AppCompatActivity implements FragmentOne.OnFr
 
 
 
-        AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
-        SQLiteDatabase bd = admin.getWritableDatabase();
-        //String dni = et1.getText().toString();
-        /*Cursor fila = bd.rawQuery( "select nombre,colegio,nromesa from votantes where dni=" + dni, null);
-        if (fila.moveToFirst()) {
-            et2.setText(fila.getString(0));
-            et3.setText(fila.getString(1));
-            et4.setText(fila.getString(2));
-        } else
-            Toast.makeText(this, "No existe persona",
-                    Toast.LENGTH_SHORT).show();*/
-        bd.close();
+//        AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
+//        SQLiteDatabase bd = admin.getWritableDatabase();
+//        //String dni = et1.getText().toString();
+//        /*Cursor fila = bd.rawQuery( "select nombre,colegio,nromesa from votantes where dni=" + dni, null);
+//        if (fila.moveToFirst()) {
+//            et2.setText(fila.getString(0));
+//            et3.setText(fila.getString(1));
+//            et4.setText(fila.getString(2));
+//        } else
+//            Toast.makeText(this, "No existe persona",
+//                    Toast.LENGTH_SHORT).show();*/
+//        bd.close();
 
 
 

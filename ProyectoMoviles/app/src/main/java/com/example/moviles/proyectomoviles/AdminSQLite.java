@@ -14,7 +14,7 @@ public class AdminSQLite extends SQLiteOpenHelper{
     public static final String TAG = AdminSQLite.class.getSimpleName();
 
 
-    public static final String DB_name = "db_unimap.db";
+    public static final String DB_nombre = "db_unimaps.db";
     public static final int DB_version = 1;
 
     public static final String Users_table = "users";
@@ -32,9 +32,8 @@ public class AdminSQLite extends SQLiteOpenHelper{
             + column_pass + " TEXT "
             + ");";
 
-    public AdminSQLite(Context context, String nombre,
-                       SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, nombre, factory, version);
+    public AdminSQLite(Context context) {
+        super(context, DB_nombre, null, DB_version);
     }
 
 
@@ -67,8 +66,8 @@ public class AdminSQLite extends SQLiteOpenHelper{
 
     public boolean getUser(String email, String pass){
 
-        String selectQuery = "select * from" + Users_table + " where " +
-                column_email + " = " + " '"+email+"' " + " and " + column_pass + " = " + " '"+pass+"' ";
+        String selectQuery = "select * from " + Users_table + " where " +
+                column_email + " = " + " '"+email+"' " + " and " + column_pass + " = " + " '"+pass+"' ;";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
