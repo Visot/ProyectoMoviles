@@ -2,7 +2,6 @@ package com.example.moviles.proyectomoviles;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -21,9 +20,10 @@ import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.Fragments.Configuraciones;
 import com.example.moviles.proyectomoviles.Fragments.Instituciones;
+import com.example.moviles.proyectomoviles.Fragments.Mapa;
 import com.example.moviles.proyectomoviles.Fragments.Opciones;
 
-public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener{
+public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener{
 
     DrawerLayout drawerLayout;
     NavigationView navView;

@@ -12,9 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.moviles.proyectomoviles.Camara;
-import com.example.moviles.proyectomoviles.Fragments.Opciones;
 import com.example.moviles.proyectomoviles.LugarAdapter;
-import com.example.moviles.proyectomoviles.MapsActivity;
 import com.example.moviles.proyectomoviles.R;
 import com.example.moviles.proyectomoviles.lugar;
 
@@ -104,7 +102,7 @@ public class Instituciones extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         Intent intencion;
         if(v.getId() == R.id.Mapa)
-            intencion = new Intent(getActivity(), MapsActivity.class);
+            intencion = new Intent(getActivity(), Mapa.class);
         else
             intencion = new Intent(getActivity(), Camara.class);
         startActivity(intencion);

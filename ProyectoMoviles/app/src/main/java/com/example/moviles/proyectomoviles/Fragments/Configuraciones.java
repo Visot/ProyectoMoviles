@@ -1,7 +1,6 @@
 package com.example.moviles.proyectomoviles.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,8 +13,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.AdminSQLite;
-import com.example.moviles.proyectomoviles.Main2Activity;
-import com.example.moviles.proyectomoviles.MapsActivity;
 import com.example.moviles.proyectomoviles.R;
 import com.example.moviles.proyectomoviles.Sesion;
 
