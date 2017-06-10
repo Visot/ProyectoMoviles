@@ -42,11 +42,6 @@
             android:label="Camara" />
         <activity android:name=".Main2Activity"
             android:theme="@style/AppTheme"/>
-        <activity android:name=".Instituciones" />
-        <activity
-            android:name=".pestanas"
-            android:label="@string/title_activity_pestanas"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-    </application>
+        </application>
 
 </manifest>

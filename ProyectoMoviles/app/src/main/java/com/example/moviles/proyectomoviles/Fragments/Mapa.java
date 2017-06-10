@@ -167,9 +167,9 @@ public class Mapa extends Fragment implements OnMapReadyCallback, View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        Intent intencion;
+        /*Intent intencion;
         intencion = new Intent(getActivity().getApplicationContext(), com.example.moviles.proyectomoviles.Instituciones.class);
-        startActivity(intencion);
+        startActivity(intencion);*/
     }
 
     @Override

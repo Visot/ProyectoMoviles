@@ -19,11 +19,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.Fragments.Configuraciones;
-import com.example.moviles.proyectomoviles.Fragments.Instituciones;
 import com.example.moviles.proyectomoviles.Fragments.Mapa;
 import com.example.moviles.proyectomoviles.Fragments.Opciones;
+import com.example.moviles.proyectomoviles.Fragments.Pestanas;
 
-public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Instituciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener{
+public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener, Pestanas.OnFragmentInteractionListener{
 
     DrawerLayout drawerLayout;
     NavigationView navView;
@@ -122,8 +122,9 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
 
                             case R.id.menu_seccion_2:
                                 Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
-                                intencion = new Intent(getApplicationContext(), pestanas.class);
-                                startActivity(intencion);
+                                //intencion = new Intent(getApplicationContext(), Pestanas.class);
+                                //startActivity(intencion);
+                                CambiaFragment(Pestanas.class);
                                 break;
 
                             case R.id.menu_opcion_2:

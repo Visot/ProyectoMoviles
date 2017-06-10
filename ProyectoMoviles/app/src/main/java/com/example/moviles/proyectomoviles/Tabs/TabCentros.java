@@ -1,4 +1,4 @@
-package com.example.moviles.proyectomoviles;
+package com.example.moviles.proyectomoviles.Tabs;
 
 /**
  * Created by broman on 22/05/17.
@@ -11,6 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.moviles.proyectomoviles.LugarAdapter;
+import com.example.moviles.proyectomoviles.R;
+import com.example.moviles.proyectomoviles.lugar;
 
 import java.util.ArrayList;
 import java.util.List;
