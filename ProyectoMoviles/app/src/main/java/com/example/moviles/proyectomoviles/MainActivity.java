@@ -16,8 +16,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.Fragments.Login;
+import com.example.moviles.proyectomoviles.Fragments.Register;
 
-public class MainActivity extends AppCompatActivity implements Login.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Login.OnFragmentInteractionListener, Register.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

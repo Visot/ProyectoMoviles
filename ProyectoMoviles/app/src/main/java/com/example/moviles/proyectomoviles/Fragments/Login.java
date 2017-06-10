@@ -16,13 +16,8 @@ import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.AdminSQLite;
 import com.example.moviles.proyectomoviles.Main2Activity;
-import com.example.moviles.proyectomoviles.PassValidator;
 import com.example.moviles.proyectomoviles.R;
-import com.example.moviles.proyectomoviles.Register;
 import com.example.moviles.proyectomoviles.Sesion;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 
 public class Login extends Fragment implements
@@ -38,8 +33,6 @@ public class Login extends Fragment implements
 
 
     private OnFragmentInteractionListener mListener;
-
-    private ListView navList;
 
     private EditText correoLogin;
     private EditText passLogin;
@@ -119,6 +112,20 @@ public class Login extends Fragment implements
         return vista;
     }
 
+    private void CambiaFragment(Class C){
+        Fragment fragment=null;
+        Class fragmentClass=C;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     @Override
     public void onClick(View v) {
         Intent intencion;
@@ -132,14 +139,14 @@ public class Login extends Fragment implements
                 break;
 
             case R.id.register:
-                intencion= new Intent(getActivity().getApplicationContext(), Register.class);
-                startActivity(intencion );
+                CambiaFragment(Register.class);
                 break;
             default:
                 break;
         }
 
     }
+
 
     public boolean login(){
         String correo =correoLogin.getText().toString();
@@ -161,20 +168,6 @@ public class Login extends Fragment implements
             return  false;
         }
 
-    }
-
-    private void CambiaFragment(Class C){
-        Fragment fragment=null;
-        Class fragmentClass=C;
-        try {
-            fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
     }
 
     /*
