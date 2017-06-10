@@ -1,6 +1,9 @@
 package com.example.moviles.proyectomoviles;
 
 import android.content.Intent;
+import android.net.Uri;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -12,105 +15,33 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.example.moviles.proyectomoviles.Fragments.Login;
 
+public class MainActivity extends AppCompatActivity implements Login.OnFragmentInteractionListener{
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-    private ListView navList;
-
-    private EditText correoLogin;
-    private EditText passLogin;
-    private Button login;
-    private Button register;
-    private AdminSQLite db;
-    private Sesion sesion;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Intent intent;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        db = new AdminSQLite(this);
-        sesion = new Sesion(this);
+        if (savedInstanceState == null) {
+            Fragment fragment = null;
+            Class fragmentClass = null;
+            fragmentClass = Login.class;
+            try {
+                fragment = (Fragment) fragmentClass.newInstance();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
 
-        correoLogin =(EditText)findViewById(R.id.mailLogin);
-        passLogin =(EditText)findViewById(R.id.passLogin);
-
-        login =(Button)findViewById(R.id.login);
-        register=(Button)findViewById(R.id.register);
-
-        login.setOnClickListener(this);
-        register.setOnClickListener(this);
-
-        if(sesion.loggedIn()){
-            intent = new Intent(getApplicationContext(),Main2Activity.class);
-            startActivity(intent);
-            finish();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
         }
 
-//        correoLogin.addTextChangedListener(new PassValidator(correoLogin) {
-//            @Override
-//            public void validate(EditText editText, String text) {
-//                //Implementamos la validación que queramos
-//
-//
-//                if(!isCorreoValid())
-//                    correoLogin.setError( "No es correo valido" );
-//            }
-//        });
-
-
-
     }
-
-
-
-
 
     @Override
-    public void onClick(View v) {
-        Intent intencion;
-
-
-        switch(v.getId()){
-            case R.id.login:
-                if (login()){
-                    intencion= new Intent(getApplicationContext(), Main2Activity.class);
-                    startActivity(intencion );
-                }
-                break;
-
-            case R.id.register:
-                intencion= new Intent(getApplicationContext(), Register.class);
-                startActivity(intencion );
-                break;
-            default:
-                break;
-        }
-
-    }
-
-    public boolean login(){
-        String correo =correoLogin.getText().toString();
-        String password=passLogin.getText().toString();
-        String[] datos;
-        String[] datostmp;
-
-
-        if(db.getUserLogin(correo,password)){
-
-            sesion.setLoggedIn(true);
-            datos = db.getUserValues(correo);
-            sesion.setUserValues(datos[0],datos[1],datos[2]);
-            datostmp = sesion.getUserValues();
-            Toast.makeText(getApplicationContext(), datostmp[0],Toast.LENGTH_SHORT).show();
-            return true;
-        }else {
-            Toast.makeText(getApplicationContext(), "Datos Erroneos",Toast.LENGTH_SHORT).show();
-            return  false;
-        }
+    public void onFragmentInteraction(Uri uri) {
 
     }
 
