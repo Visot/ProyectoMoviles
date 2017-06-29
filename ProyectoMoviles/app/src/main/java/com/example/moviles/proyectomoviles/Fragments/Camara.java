@@ -1,9 +1,10 @@
-package com.example.moviles.proyectomoviles;
+package com.example.moviles.proyectomoviles.Fragments;
 
-import android.support.v7.app.AppCompatActivity;
+import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
 import android.content.Context;
+import android.support.v4.app.Fragment;
 import android.content.pm.PackageManager;
 import android.graphics.SurfaceTexture;
 import android.hardware.camera2.CameraAccessException;
@@ -16,7 +17,6 @@ import android.hardware.camera2.CaptureRequest;
 import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.ImageReader;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.support.annotation.NonNull;
@@ -24,20 +24,31 @@ import android.support.v4.app.ActivityCompat;
 import android.util.Log;
 import android.util.Size;
 import android.util.SparseIntArray;
+import android.view.LayoutInflater;
 import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
-import android.widget.Button;
+import android.view.ViewGroup;
 import android.widget.Toast;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-public class Camara extends AppCompatActivity {
+import com.example.moviles.proyectomoviles.R;
+
+import java.io.File;
+import java.util.Arrays;
+
+public class Camara extends Fragment{
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+
+    private OnFragmentInteractionListener mListener;
 
     private static final String TAG = "UniMaps";
     private TextureView textureView;
@@ -60,14 +71,46 @@ public class Camara extends AppCompatActivity {
     //private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
+
+    private View vista;
+    public Camara() {
+        // Required empty public constructor
+    }
+
+    // TODO: Rename and change types and number of parameters
+    public static Camara newInstance(String param1, String param2) {
+        Camara fragment = new Camara();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_camara);
-        textureView = (TextureView) findViewById(R.id.texture);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        vista= inflater.inflate(R.layout.camara, container, false);
+
+        textureView = (TextureView) vista.findViewById(R.id.texture);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
+
+        return vista;
     }
+
+
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
         public void onSurfaceTextureAvailable(SurfaceTexture surface, int width, int height) {
@@ -89,7 +132,6 @@ public class Camara extends AppCompatActivity {
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(CameraDevice camera) {
-            //This is called when the camera is open
             Log.e(TAG, "onOpened");
             cameraDevice = camera;
             createCameraPreview();
@@ -108,7 +150,7 @@ public class Camara extends AppCompatActivity {
         @Override
         public void onCaptureCompleted(CameraCaptureSession session, CaptureRequest request, TotalCaptureResult result) {
             super.onCaptureCompleted(session, request, result);
-            Toast.makeText(Camara.this, "Saved:" + file, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Saved:" + file, Toast.LENGTH_SHORT).show();
             createCameraPreview();
         }
     };
@@ -147,7 +189,7 @@ public class Camara extends AppCompatActivity {
                 }
                 @Override
                 public void onConfigureFailed(@NonNull CameraCaptureSession cameraCaptureSession) {
-                    Toast.makeText(Camara.this, "Configuration change", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Configuration change", Toast.LENGTH_SHORT).show();
                 }
             }, null);
         } catch (CameraAccessException e) {
@@ -155,7 +197,7 @@ public class Camara extends AppCompatActivity {
         }
     }
     private void openCamera() {
-        CameraManager manager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        CameraManager manager = (CameraManager) getActivity().getSystemService(Context.CAMERA_SERVICE);
         Log.e(TAG, "Abrir camara");
         try {
             cameraId = manager.getCameraIdList()[0];
@@ -164,8 +206,9 @@ public class Camara extends AppCompatActivity {
             assert map != null;
             imageDimension = map.getOutputSizes(SurfaceTexture.class)[0];
             // Agregar los permisos y dejar que el usuario acepte los permisos
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(Camara.this, new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+            if (ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(getActivity().getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE}, REQUEST_CAMERA_PERMISSION);
+
                 return;
             }
             manager.openCamera(cameraId, stateCallback, null);
@@ -185,6 +228,7 @@ public class Camara extends AppCompatActivity {
             e.printStackTrace();
         }
     }
+
     private void closeCamera() {
         if (null != cameraDevice) {
             cameraDevice.close();
@@ -195,20 +239,23 @@ public class Camara extends AppCompatActivity {
             imageReader = null;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
             if (grantResults[0] == PackageManager.PERMISSION_DENIED) {
                 //Cerrar si los permisos son denegados
-                Toast.makeText(Camara.this, "No puedes usar esta aplicacion sin permisos", Toast.LENGTH_LONG).show();
-                finish();
+                Toast.makeText(getActivity().getApplicationContext(), "No puedes usar esta aplicacion sin permisos", Toast.LENGTH_LONG).show();
+                //finish();
             }
         }
     }
     @Override
-    protected void onResume() {
+    public void onResume() {
         super.onResume();
         Log.e(TAG, "onResume");
+        //Toast.makeText(getActivity().getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
+
         startBackgroundThread();
         if (textureView.isAvailable()) {
             openCamera();
@@ -217,16 +264,57 @@ public class Camara extends AppCompatActivity {
         }
     }
     @Override
-    protected void onPause() {
+    public void onPause() {
         Log.e(TAG, "onPause");
         stopBackgroundThread();
         super.onPause();
     }
 
     @Override
-    public void onBackPressed()
+    public void onStop() {
+        closeCamera();
+        super.onStop();
+    }
+
+    /*public boolean onBackPressed() {
+        closeCamera();
+        //super.onBackPressed();
+        return true;
+    }*/
+    /*@Override
+    public boolean onBackPressed()
     {
         closeCamera();
         super.onBackPressed();  // Invoca al método
+    }*/
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
     }
 }

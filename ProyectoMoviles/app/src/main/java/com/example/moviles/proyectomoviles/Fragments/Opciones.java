@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.moviles.proyectomoviles.Camara;
 import com.example.moviles.proyectomoviles.R;
 
 
@@ -73,12 +72,14 @@ public class Opciones extends Fragment implements
 
     @Override
     public void onClick(View v) {
-        Intent intencion;
+//        Intent intencion;
         if(v.getId() == R.id.Mapa)
             CambiaFragment(Mapa.class);
         else{
-            intencion = new Intent(getActivity(), Camara.class);
-        startActivity(intencion);}
+            CambiaFragment2(Camara.class);
+//            intencion = new Intent(getActivity(), Camara.class);
+//        startActivity(intencion);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -110,6 +111,19 @@ public class Opciones extends Fragment implements
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.flContent0, fragment).addToBackStack(null);
+        transaction.commit();
+    }
+
+    private void CambiaFragment2(Class C){
+        Fragment fragment=null;
+        Class fragmentClass=C;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, fragment).addToBackStack(null);
         transaction.commit();
     }
 

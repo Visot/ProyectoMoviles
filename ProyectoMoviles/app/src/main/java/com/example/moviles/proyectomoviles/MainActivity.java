@@ -17,8 +17,9 @@ import com.example.moviles.proyectomoviles.Fragments.Mapa;
 import com.example.moviles.proyectomoviles.Fragments.Opciones;
 import com.example.moviles.proyectomoviles.Fragments.Pestanas;
 import com.example.moviles.proyectomoviles.Fragments.Main2Activity;
+import com.example.moviles.proyectomoviles.Fragments.Camara;
 
-public class MainActivity extends AppCompatActivity implements Main2Activity.OnFragmentInteractionListener, Login.OnFragmentInteractionListener, Register.OnFragmentInteractionListener, Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener, Pestanas.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements Main2Activity.OnFragmentInteractionListener, Login.OnFragmentInteractionListener, Register.OnFragmentInteractionListener, Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener, Pestanas.OnFragmentInteractionListener, Camara.OnFragmentInteractionListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

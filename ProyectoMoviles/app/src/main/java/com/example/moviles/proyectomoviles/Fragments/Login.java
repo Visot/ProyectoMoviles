@@ -137,17 +137,6 @@ public class Login extends Fragment implements
             imm.hideSoftInputFromWindow(vista.getWindowToken(), 0);
         }
 
-        /*if(passLogin.requestFocus()){
-            //Asegurar que editText tiene focus
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(passLogin, InputMethodManager.SHOW_IMPLICIT);
-        }
-
-        if(correoLogin.requestFocus()){
-            //Asegurar que editText tiene focus
-            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.showSoftInput(correoLogin, InputMethodManager.SHOW_IMPLICIT);
-        }*/
         switch(v.getId()){
             case R.id.login:
                 if (login()){
@@ -190,16 +179,6 @@ public class Login extends Fragment implements
         }
 
     }
-
-    /*
-    Fragment nuevoFragmento = new BlankFragment();
- FragmentTransaction transaction = getFragmentManager().beginTransaction();
- transaction.replace(R.id.fragment_container, nuevoFragmento);
- transaction.addToBackStack(null);
-
- // Commit a la transacción
- transaction.commit();
-    */
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {

@@ -72,7 +72,7 @@ public class Main2Activity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.activity_navimain, container, false);
+        View vista= inflater.inflate(R.layout.navimain, container, false);
 
         setHasOptionsMenu(true);
         //getActivity().onCreateOptionsMenu(vista.createContextMenu());
