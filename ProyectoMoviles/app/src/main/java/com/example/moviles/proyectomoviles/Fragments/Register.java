@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -41,6 +42,7 @@ public class Register extends Fragment implements
     private EditText repassLogup;
     private EditText lastnameLogup;
     private AdminSQLite db;
+    private View vista;
 
     public Register() {
         // Required empty public constructor
@@ -77,7 +79,7 @@ public class Register extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.register, container, false);
+        vista= inflater.inflate(R.layout.register, container, false);
 
         correoLogup =(EditText)vista.findViewById(R.id.correoLogup);
         passLogup =(EditText)vista.findViewById(R.id.passLogup);
@@ -147,6 +149,10 @@ public class Register extends Fragment implements
         boolean confPass =password.equals(repassword);
         boolean tamPass = password.length()<8;
 
+        if (vista != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(vista.getWindowToken(), 0);
+        }
         switch(v.getId()){
 
             case R.id.logup :

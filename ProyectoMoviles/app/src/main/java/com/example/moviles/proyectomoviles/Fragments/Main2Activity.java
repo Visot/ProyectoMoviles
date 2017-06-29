@@ -1,5 +1,6 @@
-package com.example.moviles.proyectomoviles;
+package com.example.moviles.proyectomoviles.Fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -7,7 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -18,52 +19,67 @@ import android.view.*;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.moviles.proyectomoviles.Fragments.Configuraciones;
-import com.example.moviles.proyectomoviles.Fragments.Mapa;
-import com.example.moviles.proyectomoviles.Fragments.Opciones;
-import com.example.moviles.proyectomoviles.Fragments.Pestanas;
+import com.example.moviles.proyectomoviles.R;
+import com.example.moviles.proyectomoviles.Sesion;
 
-public class Main2Activity extends AppCompatActivity implements Configuraciones.OnFragmentInteractionListener,Opciones.OnFragmentInteractionListener, Mapa.OnFragmentInteractionListener, Pestanas.OnFragmentInteractionListener{
+public class Main2Activity extends Fragment {
+
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
+
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
+
+
+    private OnFragmentInteractionListener mListener;
 
     DrawerLayout drawerLayout;
     NavigationView navView;
     Toolbar toolbar;
     private Cursor fila;
     private Sesion sesion;
+    private FloatingActionButton fab;
+
+    public Main2Activity() {
+        // Required empty public constructor
+    }
+
+    // TODO: Rename and change types and number of parameters
+    public static Main2Activity newInstance(String param1, String param2) {
+        Main2Activity fragment = new Main2Activity();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_navimain3);
-        /*Button mapa = (Button) findViewById(R.id.Mapa);
-        mapa.setOnClickListener(this);
-        Button camara = (Button) findViewById(R.id.Camara);
-        camara.setOnClickListener(this);*/
+        sesion = new Sesion(getActivity().getApplicationContext());
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View vista= inflater.inflate(R.layout.activity_navimain, container, false);
 
+        setHasOptionsMenu(true);
+        //getActivity().onCreateOptionsMenu(vista.createContextMenu());
 
-//        AdminSQLite admin = new AdminSQLite(this, "administracion", null, 1);
-//        SQLiteDatabase bd = admin.getWritableDatabase();
-//        //String dni = et1.getText().toString();
-//        /*Cursor fila = bd.rawQuery( "select nombre,colegio,nromesa from votantes where dni=" + dni, null);
-//        if (fila.moveToFirst()) {
-//            et2.setText(fila.getString(0));
-//            et3.setText(fila.getString(1));
-//            et4.setText(fila.getString(2));
-//        } else
-//            Toast.makeText(this, "No existe persona",
-//                    Toast.LENGTH_SHORT).show();*/
-//        bd.close();
+        toolbar = (Toolbar) vista.findViewById(R.id.toolbar);
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
-
-
-
-        sesion = new Sesion(this);
-
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        //toolbar.setOnMenuItemClickListener();
         if (savedInstanceState == null) {
             Fragment fragment = null;
             Class fragmentClass = null;
@@ -74,11 +90,13 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
                 e.printStackTrace();
             }
 
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+            transaction.replace(R.id.flContent0, fragment).addToBackStack(null);
+            transaction.commit();
+
         }
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        fab = (FloatingActionButton) vista.findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,10 +105,10 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
             }
         });
 
-        drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
-        navView = (NavigationView)findViewById(R.id.navview);
+        drawerLayout = (DrawerLayout)vista.findViewById(R.id.drawer_layout);
+        navView = (NavigationView)vista.findViewById(R.id.navview);
 
-        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
+        ActionBarDrawerToggle actionBarDrawerToggle = new ActionBarDrawerToggle((getActivity()), drawerLayout, toolbar, R.string.open_drawer, R.string.close_drawer);
 
         // Establecemos el actionbarToggle al drawer layout
         drawerLayout.setDrawerListener(actionBarDrawerToggle);
@@ -101,6 +119,8 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
         if (navView != null) {
             setupNavigation(navView);
         }
+
+        return vista;
     }
 
     private void setupNavigation(NavigationView navigationView) {
@@ -116,23 +136,23 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
 
                         switch (menuItem.getItemId()) {
                             case R.id.menu_seccion_1:
-                                Toast.makeText(getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity().getApplicationContext(), "Home", Toast.LENGTH_SHORT).show();
                                 CambiaFragment(Opciones.class);
                                 break;
 
                             case R.id.menu_seccion_2:
-                                Toast.makeText(getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
-                                //intencion = new Intent(getApplicationContext(), Pestanas.class);
-                                //startActivity(intencion);
+                                Toast.makeText(getActivity().getApplicationContext(), "Lugares", Toast.LENGTH_SHORT).show();
                                 CambiaFragment(Pestanas.class);
                                 break;
 
                             case R.id.menu_opcion_2:
                                 sesion.setLoggedIn(false);
-                                finish();
-                                intencion = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intencion);
-                                return true;
+                                fab.setVisibility(View.GONE);
+                                Toast.makeText(getActivity().getApplicationContext(), "Login", Toast.LENGTH_SHORT).show();
+                                //intencion = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                                //startActivity(intencion);
+                                CambiaFragment(Login.class);
+                                break;
 
                         }
 /*                        try {
@@ -175,8 +195,9 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
         } catch (Exception e) {
             e.printStackTrace();
         }
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).addToBackStack(null).commit();
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent0, fragment).addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -185,7 +206,7 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
         //Intent intencion;
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(getApplicationContext(), "Configuracion", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity().getApplicationContext(), "Configuracion", Toast.LENGTH_SHORT).show();
             CambiaFragment(Configuraciones.class);
 
             return true;
@@ -196,27 +217,37 @@ public class Main2Activity extends AppCompatActivity implements Configuraciones.
     }
 
     @Override
-    public void onBackPressed() {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.main, menu);
+    }
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        if(getFragmentManager().getBackStackEntryCount()>1)
-            getFragmentManager().popBackStack();
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
         }
     }
 
     @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentInteractionListener) {
+            mListener = (OnFragmentInteractionListener) context;
+
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentInteractionListener");
+        }
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
     }
 
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
 }

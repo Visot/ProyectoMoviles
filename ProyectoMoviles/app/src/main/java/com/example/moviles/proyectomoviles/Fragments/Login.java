@@ -1,21 +1,22 @@
 package com.example.moviles.proyectomoviles.Fragments;
 
 import android.content.Context;
-import android.content.Intent;
+//import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.moviles.proyectomoviles.AdminSQLite;
-import com.example.moviles.proyectomoviles.Main2Activity;
 import com.example.moviles.proyectomoviles.R;
 import com.example.moviles.proyectomoviles.Sesion;
 
@@ -40,6 +41,7 @@ public class Login extends Fragment implements
     private Button register;
     private AdminSQLite db;
     private Sesion sesion;
+    private View vista;
 
     public Login() {
         // Required empty public constructor
@@ -77,9 +79,9 @@ public class Login extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.login, container, false);
+        vista= inflater.inflate(R.layout.login, container, false);
 
-        Intent intent;
+        //Intent intent;
 
         correoLogin =(EditText)vista.findViewById(R.id.mailLogin);
         passLogin =(EditText)vista.findViewById(R.id.passLogin);
@@ -91,8 +93,9 @@ public class Login extends Fragment implements
         register.setOnClickListener(this);
 
         if(sesion.loggedIn()){
-            intent = new Intent(getActivity().getApplicationContext(),Main2Activity.class);
-            startActivity(intent);
+            CambiaFragment(Main2Activity.class);
+            //intent = new Intent(getActivity().getApplicationContext(),Main2Activity.class);
+            //startActivity(intent);
             //finish();
             return null;
         }
@@ -121,20 +124,36 @@ public class Login extends Fragment implements
             e.printStackTrace();
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, fragment);
-        transaction.addToBackStack(null);
+        transaction.replace(R.id.flContent, fragment).addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void onClick(View v) {
-        Intent intencion;
+        //View view = getActivity().getCurrentFocus();
+        //esconder keyboard
+        if (vista != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(vista.getWindowToken(), 0);
+        }
 
+        /*if(passLogin.requestFocus()){
+            //Asegurar que editText tiene focus
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(passLogin, InputMethodManager.SHOW_IMPLICIT);
+        }
+
+        if(correoLogin.requestFocus()){
+            //Asegurar que editText tiene focus
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.showSoftInput(correoLogin, InputMethodManager.SHOW_IMPLICIT);
+        }*/
         switch(v.getId()){
             case R.id.login:
                 if (login()){
-                    intencion= new Intent(getActivity().getApplicationContext(), Main2Activity.class);
-                    startActivity(intencion );
+                    CambiaFragment(Main2Activity.class);
+                    //intencion= new Intent(getActivity().getApplicationContext(), Main2Activity.class);
+                    //startActivity(intencion );
                 }
                 break;
 
@@ -144,6 +163,8 @@ public class Login extends Fragment implements
             default:
                 break;
         }
+
+
 
     }
 

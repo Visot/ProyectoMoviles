@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class Configuraciones extends Fragment implements
     EditText contranueva;
     EditText contrarepetir;
     private OnFragmentInteractionListener mListener;
+    private View vista;
 
     public Configuraciones() {
         // Required empty public constructor
@@ -71,7 +73,7 @@ public class Configuraciones extends Fragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View vista= inflater.inflate(R.layout.configuraciones, container, false);
+        vista= inflater.inflate(R.layout.configuraciones, container, false);
         contranueva = (EditText) vista.findViewById(R.id.Nueva);
         contrarepetir = (EditText) vista.findViewById(R.id.Repetida);
         Button cambiar = (Button) vista.findViewById(R.id.Cambiar);
@@ -90,26 +92,40 @@ public class Configuraciones extends Fragment implements
             e.printStackTrace();
         }
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.flContent, fragment).addToBackStack(null);
+        transaction.replace(R.id.flContent0, fragment).addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public void onClick(View v) {
 
-        if(v.getId() == R.id.Menu)
-            CambiaFragment(Opciones.class);
-        else if(v.getId() == R.id.Cambiar)
-        {
-            String nueva=contranueva.getText().toString();
-            String repetida=contrarepetir.getText().toString();
-            if(nueva.equals(repetida)){
-                db.updateUserPass(nueva,sesion.getUserValues()[2]);
-                Toast.makeText(getActivity().getApplicationContext(), "Cambio la contraseña", Toast.LENGTH_SHORT).show();
-            }
-            else
-                Toast.makeText(getActivity().getApplicationContext(), "No son iguales", Toast.LENGTH_SHORT).show();
+        if (vista != null) {
+            InputMethodManager imm = (InputMethodManager)getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(vista.getWindowToken(), 0);
         }
+
+        switch(v.getId()){
+
+            case R.id.Menu :
+                CambiaFragment(Opciones.class);
+                break;
+
+            case R.id.Cambiar:
+                String nueva=contranueva.getText().toString();
+                String repetida=contrarepetir.getText().toString();
+                if(nueva.equals(repetida)){
+                    db.updateUserPass(nueva,sesion.getUserValues()[2]);
+                    Toast.makeText(getActivity().getApplicationContext(), "Cambio la contraseña", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    Toast.makeText(getActivity().getApplicationContext(), "No son iguales", Toast.LENGTH_SHORT).show();
+                break;
+
+            default:
+                break;
+
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
