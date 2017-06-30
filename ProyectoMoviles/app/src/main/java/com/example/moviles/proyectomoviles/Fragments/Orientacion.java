@@ -33,24 +33,32 @@ public class Orientacion extends AppCompatActivity implements SensorEventListene
     TextView mLatitudeText;
     TextView mLongitudeText;
     TextView distancia;
+    double bearing,compass;
     private SensorManager mSensorManager;
     private final float[] RotationMatrix = new float[9];
     private final float[] OrientationAngles = new float[3];
     private final float[] mAccelerometerReading = new float[3];
     private final float[] mMagnetometerReading = new float[3];
+    Location lugar= new Location("");
+
+    private Sensor acelerometro;
+    private Sensor rotacion;
     private ImageView mImageView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_orientacion);
         mContext = this;
-        mLatitudeText = (TextView) this.findViewById((R.id.Latitud));
-        mLongitudeText = (TextView) this.findViewById((R.id.Longitud));
         distancia = (TextView) this.findViewById((R.id.Distancia));
         mImageView = (ImageView) findViewById(R.id.mImageView);
-
-        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        //lugar.setLatitude(-12.016858);
+        //lugar.setLongitude(-77.049769);
+        lugar.setLatitude(-12.0555167);
+        lugar.setLongitude(-77.0516222);
         mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        locationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
+        rotacion=mSensorManager.getDefaultSensor(Sensor.TYPE_MAGNETIC_FIELD);
+        acelerometro=mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
@@ -71,25 +79,11 @@ public class Orientacion extends AppCompatActivity implements SensorEventListene
         public void onLocationChanged(android.location.Location location) {
             double latitud = location.getLatitude();
             double longitud = location.getLongitude();
-            double bearing,compass;
-            Location lugar = new Location("");
-            lugar.setLatitude(-12.016858);
-            lugar.setLongitude(-77.049769);
-            String msg = "Latitud " + latitud + "Longitud " + longitud;
-            Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
-            mLatitudeText.setText("Latitud  " + location.getLatitude());
-            mLongitudeText.setText("Longitud  " + location.getLongitude());
-            bearing = location.getBearing();
-            mSensorManager.getOrientation(RotationMatrix, OrientationAngles);
-            compass=OrientationAngles[0];
-            Bitmap bmpOriginal = BitmapFactory.decodeResource(getResources(), R.drawable.flecha);
-            Bitmap bmResult = Bitmap.createBitmap(bmpOriginal.getWidth(), bmpOriginal.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas tempCanvas = new Canvas(bmResult);
-            tempCanvas.rotate((float)(70), bmpOriginal.getWidth()/2, bmpOriginal.getHeight()/2);
-            tempCanvas.drawBitmap(bmpOriginal, 0, 0, null);
 
-            mImageView.setImageBitmap(bmResult);
-            distancia.setText("Distancia  " + location.distanceTo(lugar) + "\n" + "angle " + (float)(bearing));
+            distancia.setText("Distancia  al destino" + location.distanceTo(lugar));
+            //String msg = "Latitud " + latitud + "Longitud " + longitud;
+            //Toast.makeText(mContext, msg, Toast.LENGTH_LONG).show();
+
 
         }
 
@@ -112,12 +106,17 @@ public class Orientacion extends AppCompatActivity implements SensorEventListene
 
     protected void onResume() {
         super.onResume();
-        //mSensorManager.registerListener(this, Sensor.TYPE_ACCELEROMETER, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
-        //mSensorManager.registerListener(this, Sensor.TYPE_MAGNETIC_FIELD, SensorManager.SENSOR_DELAY_NORMAL, SensorManager.SENSOR_DELAY_UI);
+        mSensorManager.registerListener(this, acelerometro, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, rotacion, SensorManager.SENSOR_DELAY_NORMAL);
 
         isLocationEnabled();
     }
-
+    @Override
+    protected void onPause() {
+        // unregister listener
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
     private void isLocationEnabled() {
 
         if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
@@ -158,15 +157,50 @@ public class Orientacion extends AppCompatActivity implements SensorEventListene
 
     @Override
     public void onSensorChanged(SensorEvent event) {
+        Location location = new Location("");
+        location.getLongitude();
+        location.getLatitude();
+
+        updateOrientationAngles();
         if (event.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
             System.arraycopy(event.values, 0, mAccelerometerReading,
                     0, mAccelerometerReading.length);
+            //Toast.makeText(mContext, "cambiando sensor1", Toast.LENGTH_LONG).show();
+            mSensorManager.getRotationMatrix(RotationMatrix, null,
+                    mAccelerometerReading, mMagnetometerReading);
+            mSensorManager.getOrientation(RotationMatrix, OrientationAngles);
+            bearing = location.bearingTo(lugar);
+            compass=Math.toDegrees(OrientationAngles[0]);
+            Bitmap bmpOriginal = BitmapFactory.decodeResource(getResources(), R.drawable.flecha);
+            Bitmap bmResult = Bitmap.createBitmap(bmpOriginal.getWidth(), bmpOriginal.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas tempCanvas = new Canvas(bmResult);
+            tempCanvas.rotate((float)(bearing-compass), bmpOriginal.getWidth()/2, bmpOriginal.getHeight()/2);
+            tempCanvas.drawBitmap(bmpOriginal, 0, 0, null);
+            mImageView.setImageBitmap(bmResult);
+
+
         }
         else if (event.sensor.getType()== Sensor.TYPE_MAGNETIC_FIELD) {
             System.arraycopy(event.values, 0, mMagnetometerReading,
-                    0, mMagnetometerReading.length);
+                    0, mMagnetometerReading.length);/*
+            Toast.makeText(mContext, "cambiando sensor2", Toast.LENGTH_LONG).show();
+            mSensorManager.getRotationMatrix(RotationMatrix, null,
+                    mAccelerometerReading, mMagnetometerReading);
+            mSensorManager.getOrientation(RotationMatrix, OrientationAngles);
+            bearing = location.getBearing();
+            compass=OrientationAngles[0];
+            Bitmap bmpOriginal = BitmapFactory.decodeResource(getResources(), R.drawable.flecha);
+            Bitmap bmResult = Bitmap.createBitmap(bmpOriginal.getWidth(), bmpOriginal.getHeight(), Bitmap.Config.ARGB_8888);
+            Canvas tempCanvas = new Canvas(bmResult);
+            tempCanvas.rotate((float)(bearing-compass   ), bmpOriginal.getWidth()/2, bmpOriginal.getHeight()/2);
+            tempCanvas.drawBitmap(bmpOriginal, 0, 0, null);
+
+            mImageView.setImageBitmap(bmResult);*/
+            //distancia.setText("Distancia  " + "\n" + "angle " + (float)(bearing));
+
         }
-        updateOrientationAngles();
+
+        //updateOrientationAngles();
     }
 
     @Override
