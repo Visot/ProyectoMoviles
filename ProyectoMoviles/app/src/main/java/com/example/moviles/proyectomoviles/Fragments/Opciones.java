@@ -1,5 +1,4 @@
 package com.example.moviles.proyectomoviles.Fragments;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -83,7 +82,9 @@ public class Opciones extends Fragment implements
 //        startActivity(intencion);
         }
         else if(v.getId()==R.id.orientar){
-            CambiaFragment3(Orientacion.class);
+            //CambiaFragment3(Orientacion.class);
+            Intent intencion = new Intent(getActivity(), Orientacion.class);
+            startActivity(intencion);
         }
     }
 
