@@ -1,5 +1,4 @@
 package com.example.moviles.proyectomoviles.Fragments;
-
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -67,6 +66,8 @@ public class Opciones extends Fragment implements
         mapa.setOnClickListener(this);
         Button camara = (Button) vista.findViewById(R.id.Camara);
         camara.setOnClickListener(this);
+        Button orientacion=(Button) vista.findViewById(R.id.orientar);
+        orientacion.setOnClickListener(this);
         return vista;
     }
 
@@ -75,10 +76,15 @@ public class Opciones extends Fragment implements
 //        Intent intencion;
         if(v.getId() == R.id.Mapa)
             CambiaFragment(Mapa.class);
-        else{
+        else if(v.getId()==R.id.Camara){
             CambiaFragment2(Camara.class);
 //            intencion = new Intent(getActivity(), Camara.class);
 //        startActivity(intencion);
+        }
+        else if(v.getId()==R.id.orientar){
+            //CambiaFragment3(Orientacion.class);
+            Intent intencion = new Intent(getActivity(), Orientacion.class);
+            startActivity(intencion);
         }
     }
 
@@ -115,6 +121,18 @@ public class Opciones extends Fragment implements
     }
 
     private void CambiaFragment2(Class C){
+        Fragment fragment=null;
+        Class fragmentClass=C;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.flContent, fragment).addToBackStack(null);
+        transaction.commit();
+    }
+    private void CambiaFragment3(Class C){
         Fragment fragment=null;
         Class fragmentClass=C;
         try {
