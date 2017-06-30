@@ -1,6 +1,8 @@
 package com.example.moviles.proyectomoviles;
 
+import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
@@ -8,6 +10,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.widget.Toast;
 
 
 import com.example.moviles.proyectomoviles.Fragments.Login;
@@ -54,19 +57,7 @@ public class MainActivity extends AppCompatActivity implements Main2Activity.OnF
             super.onBackPressed();
         }
     }
-
-    /*@Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
-/*    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
-
+    private static final int REQUEST_CAMERA_PERMISSION = 200;
 
     @Override
     public void onFragmentInteraction(Uri uri) {

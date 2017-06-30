@@ -1,5 +1,6 @@
 package com.example.moviles.proyectomoviles.Fragments;
 
+import android.opengl.GLSurfaceView;
 import android.net.Uri;
 import android.os.Bundle;
 import android.Manifest;
@@ -31,6 +32,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.moviles.proyectomoviles.MiGLSurfaceView;
 import com.example.moviles.proyectomoviles.R;
 
 import java.io.File;
@@ -38,6 +40,7 @@ import java.util.Arrays;
 
 public class Camara extends Fragment{
 
+    //private GLSurfaceView mGLView;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -47,11 +50,13 @@ public class Camara extends Fragment{
     private String mParam1;
     private String mParam2;
 
-
+    private Fragment frame;
     private OnFragmentInteractionListener mListener;
 
     private static final String TAG = "UniMaps";
     private TextureView textureView;
+    private TextureView textureView2;
+    private MiGLSurfaceView surface;
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static {
         ORIENTATIONS.append(Surface.ROTATION_0, 90);
@@ -88,9 +93,30 @@ public class Camara extends Fragment{
         return fragment;
     }
 
+
+
+
+    private GLSurfaceView mGLView;
+
+
+
+/*
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Create a GLSurfaceView instance and set it
+        // as the ContentView for this Activity
+
+        setContentView(mGLView);
+
+    }*/
+
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //mGLView = new MyGLSurfaceView(getActivity());
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -101,15 +127,89 @@ public class Camara extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        //vista= inflater.inflate(mGLView, container, false);
+        //mGLView.setEGLConfigChooser( 8, 8, 8, 8, 16, 0 );
+//        mGLView.getHolder().setFormat( PixelFormat.TRANSLUCENT );
+
+
+//        vista= inflater.inflate(R.layout.camara, container, false);
+
+        //Intent intent;
+
         vista= inflater.inflate(R.layout.camara, container, false);
 
+        /*textureView = (TextureView) vista.findViewById(R.id.texture);
+        assert textureView != null;
+        textureView.setSurfaceTextureListener(textureListener);
+*/
+
+        surface = (MiGLSurfaceView) vista.findViewById(R.id.glSurface);
+        //surface.onResume();
+        //assert textureView2 != null;
+        //surface.bringToFront();
+
+        surface.setZOrderOnTop(true);
         textureView = (TextureView) vista.findViewById(R.id.texture);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
 
+
+
+//                (textureView);
+        //vista=textureView;
+        //getActivity().addContentView(textureView,new LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ));
+        //textureView = (TextureView) vista.findViewById(R.id.texture);
+        //assert textureView != null;
+        //textureView.setSurfaceTextureListener(textureListener);
+
+        //mGLView.setEGLConfigChooser( 8, 8, 8, 8, 16, 0 );
+        //mGLView.getHolder().setFormat( PixelFormat.TRANSLUCENT );
+
+        //mGLView = new MyGLSurfaceView(getActivity());
+
+        // The renderer will be implemented in a separate class, GLView, which I'll show next.
+        //mGLView.setRenderer( new GLClearRenderer() );
+        // Now set this as the main view.
+        //setContentView(mGLView);
+
+        //addContentView();
+        //vista.addaddTouchables(mGLView);
+//        setContentView( glView );
+
+        // ...and add it, wrapping the full screen size.
+        //vista.addView();
+        //textureView.setSurfaceTexture(mGLView);
+        /*frame=vista.findViewById(R.id.surfaceView);
+        surface = (SurfaceView) vista.findViewById(R.id.surfaceView);
+        assert surface != null;
+        surface.;
+
+        addContentView( mGLView, new ViewGroup.LayoutParams( LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT ) );
+*/
+
+
         return vista;
     }
+/*
+    @Override
+    public void onPause() {
+        super.onPause();
+        // The following call pauses the rendering thread.
+        // If your OpenGL application is memory intensive,
+        // you should consider de-allocating objects that
+        // consume significant memory here.
+        mGLView.onPause();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        // The following call resumes a paused rendering thread.
+        // If you de-allocated graphic objects for onPause()
+        // this is a good place to re-allocate them.
+        mGLView.onResume();
+    }
+*/
 
     TextureView.SurfaceTextureListener textureListener = new TextureView.SurfaceTextureListener() {
         @Override
@@ -129,6 +229,7 @@ public class Camara extends Fragment{
         public void onSurfaceTextureUpdated(SurfaceTexture surface) {
         }
     };
+
     private final CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback() {
         @Override
         public void onOpened(CameraDevice camera) {
@@ -253,6 +354,7 @@ public class Camara extends Fragment{
     @Override
     public void onResume() {
         super.onResume();
+        surface.onResume();
         Log.e(TAG, "onResume");
         //Toast.makeText(getActivity().getApplicationContext(), "onResume", Toast.LENGTH_SHORT).show();
 
@@ -267,6 +369,7 @@ public class Camara extends Fragment{
     public void onPause() {
         Log.e(TAG, "onPause");
         stopBackgroundThread();
+        surface.onPause();
         super.onPause();
     }
 
