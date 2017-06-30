@@ -47,17 +47,63 @@ public class Cuadrado {
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
-    static float squareCoords[] = {
+    /*static float squareCoords[] = {
             -0.5f,  0.5f, 0.0f,   // top left
             -0.5f, -0.5f, 0.0f,   // bottom left
              0.5f, -0.5f, 0.0f,   // bottom right
              0.5f,  0.5f, 0.0f }; // top right
+*/
 
-    private final short drawOrder[] = { 0, 1, 2, 0, 2, 3 };
+    // vetices para generar un cubo 3D
+    static float squareCoords[]=
+            {
+                    0.5f, -0.5f, -0.5f,
+                    0.5f, -0.5f,  0.5f,
+                    -0.5f, -0.5f,  0.5f,
+                    -0.5f, -0.5f, -0.5f,
+                    0.5f,  0.5f, -0.5f,
+                    0.5f,  0.5f,  0.5f,
+                    -0.5f,  0.5f,  0.5f,
+                    -0.5f,  0.5f, -0.5f,
+            };
+
+// componetes RGBA para los colores de cada vertice
+//    const float color[] = { /.../ };
+
+// indices usados para unir los vertices que componen el cubo
+
+
+    private final short drawOrder[] =
+            {
+                    0, 1, 2,
+                    7, 6, 5,
+                    4, 5, 1,
+                    5, 6, 2,
+                    6, 7, 3,
+                    0, 3, 7,
+                    3, 0, 2,
+                    4, 7, 5,
+                    0, 4, 1,
+                    1, 5, 2,
+                    2, 6, 3,
+                    4, 0, 7
+            };//{ 0, 1, 2, 0, 2, 3 };
 
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
     float color[] = { 1.0f, 0.2f, 0.2f, 1.0f };
+
+    float colores[] =
+            {
+                    1.0f, 0.0f, 0.0f, 1.0f,
+                    0.0f, 1.0f, 0.0f, 1.0f,
+                    0.0f, 0.0f, 1.0f, 1.0f,
+                    1.0f, 0.0f, 0.0f, 1.0f,
+                    0.0f, 1.0f, 0.0f, 1.0f,
+                    1.0f, 0.0f, 0.0f, 1.0f,
+                    0.0f, 1.0f, 0.0f, 1.0f,
+                    0.0f, 0.0f, 1.0f, 1.0f
+            };
 
     public Cuadrado() {
         // initialize vertex byte buffer for shape coordinates
@@ -112,7 +158,8 @@ public class Cuadrado {
         mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
 
         // Set color for drawing the triangle
-        GLES20.glUniform4fv(mColorHandle, 1, color, 0);
+        //GLES20.glBufferData(GL_ARRAY_BUFFER, sizeof(color), color, GL_STATIC_DRAW);
+        GLES20.glUniform4fv(mColorHandle, 1, colores, 0);
 
         // get handle to shape's transformation matrix
         mMVPMatrixHandle = GLES20.glGetUniformLocation(mProgram, "uMVPMatrix");

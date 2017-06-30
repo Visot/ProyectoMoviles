@@ -36,7 +36,7 @@
         <com.example.moviles.proyectomoviles.MiGLSurfaceView
             android:id="@+id/glSurface"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="800px"
             tools:layout_constraintTop_creator="1"
             tools:layout_constraintRight_creator="1"
             tools:layout_constraintBottom_creator="1"

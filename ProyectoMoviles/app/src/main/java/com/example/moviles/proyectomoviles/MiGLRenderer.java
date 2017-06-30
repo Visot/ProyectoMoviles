@@ -36,10 +36,13 @@ public class MiGLRenderer implements GLSurfaceView.Renderer {
     private final float[] mRotationMatrix = new float[16];
 
     private float mAngle;
+    private float mAnglec;
+
 
     @Override
     public void onSurfaceCreated(GL10 unused, EGLConfig config) {
 
+        mAngle=0;
         // Set the background frame color
 //        GLES20.glClearColor(1.0f, 1.0f, 1.0f, 0.5f);
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
@@ -52,6 +55,7 @@ public class MiGLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused) {
         float[] scratch = new float[16];
+        float[] scratchc = new float[16];
 
         // Draw background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
@@ -62,16 +66,21 @@ public class MiGLRenderer implements GLSurfaceView.Renderer {
         // Calculate the projection and view transformation
         Matrix.multiplyMM(mMVPMatrix, 0, mProjectionMatrix, 0, mViewMatrix, 0);
 
-        // Draw square
+
+        //mAnglec = mAnglec+1;
+        //Matrix.setRotateM(mRotationMatrix, 0, mAnglec, 1.0f, 1.0f, 0.0f);
+
+        //Matrix.setRotateM(mRotationMatrix, 0, 20, 1.0f, 0.0f, 0.0f);
+
+        // Combine the rotation matrix with the projection and camera view
+        // Note that the mMVPMatrix factor *must be first* in order
+        // for the matrix multiplication product to be correct.
+        //Matrix.multiplyMM(scratchc, 0, mMVPMatrix, 0, mRotationMatrix, 0);
+
         mSquare.draw(mMVPMatrix);
 
-        // Create a rotation for the triangle
-
-        // Use the following code to generate constant rotation.
-        // Leave this code out when using TouchEvents.
-        // long time = SystemClock.uptimeMillis() % 4000L;
-        // float angle = 0.090f * ((int) time);
-
+        //////////////ACA PUEDES MODIFICAR EL ANGULO
+        mAngle=mAngle+1;
         Matrix.setRotateM(mRotationMatrix, 0, mAngle, 0, 0, 1.0f);
 
         // Combine the rotation matrix with the projection and camera view
@@ -110,18 +119,6 @@ public class MiGLRenderer implements GLSurfaceView.Renderer {
         return shader;
     }
 
-    /**
-    * Utility method for debugging OpenGL calls. Provide the name of the call
-    * just after making it:
-    *
-    * <pre>
-    * mColorHandle = GLES20.glGetUniformLocation(mProgram, "vColor");
-    * MiGLRenderer.checkGlError("glGetUniformLocation");</pre>
-    *
-    * If the operation is not successful, the check throws an error.
-    *
-    * @param glOperation - Name of the OpenGL call to check.
-    */
     public static void checkGlError(String glOperation) {
         int error;
         while ((error = GLES20.glGetError()) != GLES20.GL_NO_ERROR) {
@@ -145,5 +142,4 @@ public class MiGLRenderer implements GLSurfaceView.Renderer {
     public void setAngle(float angle) {
         mAngle = angle;
     }
-
 }

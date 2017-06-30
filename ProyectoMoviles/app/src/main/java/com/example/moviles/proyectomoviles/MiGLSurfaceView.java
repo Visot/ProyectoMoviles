@@ -46,14 +46,12 @@ public class MiGLSurfaceView extends GLSurfaceView {
         setRenderer(mRenderer);
 
         // Render the view only when there is a change in the drawing data
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
     }
 
     public MiGLSurfaceView(Context context, AttributeSet attrs) {
         super(context, attrs);
         setEGLContextClientVersion(2);
-        //super.setEGLConfigChooser(8 , 8, 8, 8, 16, 0);
-        //super.getHolder().setFormat( PixelFormat.TRANSLUCENT );
         setEGLConfigChooser(8, 8, 8, 8, 16, 0);
         getHolder().setFormat(PixelFormat.TRANSLUCENT);
 
@@ -62,18 +60,16 @@ public class MiGLSurfaceView extends GLSurfaceView {
         setRenderer(mRenderer);
 
         // Render the view only when there is a change in the drawing data
-        setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+        //setRenderMode(GLSurfaceView.RENDERMODE_WHEN_DIRTY);
+
     }
 
     private final float TOUCH_SCALE_FACTOR = 180.0f / 320;
     private float mPreviousX;
     private float mPreviousY;
 
-    @Override
+    /*@Override
     public boolean onTouchEvent(MotionEvent e) {
-        // MotionEvent reports input details from the touch screen
-        // and other input controls. In this case, you are only
-        // interested in events where the touch position changed.
 
         float x = e.getX();
         float y = e.getY();
@@ -103,6 +99,6 @@ public class MiGLSurfaceView extends GLSurfaceView {
         mPreviousX = x;
         mPreviousY = y;
         return true;
-    }
+    }*/
 
 }
