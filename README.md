@@ -58,7 +58,7 @@ En este fragment usamos el **API de GoogleMaps** con el objetivo de mostrarle al
 <br>
 
 #### Orientación
-En la activity **orientacion** hacemos uso de la clase **locationManager** la cual nos proveerá información de nuestra ubicación actual además usamos los siguientes sensores: acelerómetro y campo magnetico para detectar la rotación del celular ademas haciendo uso de 
+En la activity **orientacion** hacemos uso de la clase **locationManager** la cual nos proveerá información de nuestra ubicación actual además usamos los siguientes sensores: acelerómetro y campo magnetico para detectar la rotación del celular ademas haciendo uso de funciones como Bearingto que nos proporciona grados para poder direccionar la flecha orientadora.
 <p align="center">
 <img class="left" src="https://github.com/Visot/ProyectoMoviles/blob/master/img/ima6.png" width="200" >
 
