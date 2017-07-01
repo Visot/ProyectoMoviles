@@ -13,6 +13,7 @@ La aplicación tiene como objetivo mostrar distintos lugares de la universidad y
 <br>
 
 #### Registro
+La aplicación genera una base de datos en SQLite para guardar los registros. Ademas se guardan en las preferencias, la sesión del usuario para que este no inicie sesión cada vez que abra la aplicación.
 <p align="center">
 <img  src="https://github.com/Visot/ProyectoMoviles/blob/master/img/ima8.png" width="200" >
 </p>
@@ -68,7 +69,7 @@ En la activity **orientacion** hacemos uso de la clase **locationManager** la cu
 <br>
 
 #### Cámara
-En este fragment usamos OpenGL con el objetivo de dibujar un indicador similar al de orientación de momento esta en proceso.
+En este fragment usamos OpenGL y la el dispositivo camara con el objetivo de dibujar un indicador similar al de orientación e ir indicar la dirección que debera de seguir el usurio mientras ve la pantalla. De momento esta en proceso.
 <p align="center">
 <img  src="https://github.com/Visot/ProyectoMoviles/blob/master/img/ima9.png" width="500" >
 </p>
